@@ -26,6 +26,7 @@ public class LocalProfile {
 				.addScript("hsql/exit.sql")
 				.addScript("hsql/funder.sql")
 				.addScript("hsql/health_and_dv.sql")
+				.addScript("hsql/income_services.sql")
 				.build();
 	}
 	
