@@ -21,5 +21,19 @@ public enum VeteranStatus {
 			return NO_DATA;
 		}
 	}
+	
+	public int toColumnValue()
+	{
+		switch(this)
+		{
+		case NO: return 0;
+		case YES: return 1;
+		case DOES_NOT_KNOW: return 8;
+		case REFUSED: return 9;
+		case NO_DATA:
+			default:
+				return 99;
+		}
+	}
 
 }

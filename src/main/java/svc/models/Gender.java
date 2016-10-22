@@ -32,4 +32,26 @@ public enum Gender {
 			return NO_DATA;
 		}
 	}
+	
+	public int getOtherGender()
+	{
+		return this == OTHER ? 1 : 0;
+	}
+	
+	public int getGender()
+	{
+		switch(this)
+		{
+		case FEMALE: return 0;
+		case MALE: return 1;
+		case TRANSGENDER_FEMALE: return 2;
+		case TRANSGENDER_MALE: return 3;
+		case NO_IDENTITY: return 4;
+		case DOES_NOT_KNOW: return 8;
+		case REFUSED: return 9;
+		case NO_DATA:
+			default:
+			return 99;
+		}
+	}
 }

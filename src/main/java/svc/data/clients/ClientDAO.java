@@ -1,9 +1,6 @@
 package svc.data.clients;
 
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -21,6 +18,8 @@ import svc.models.VeteranStatus;
 import svc.models.ClientDisabilities;
 import svc.models.EmploymentEducation;
 import svc.models.Enrollment;
+import svc.models.Exit;
+import svc.models.Funder;
 
 @Repository
 public class ClientDAO extends BaseJdbcDao {
@@ -35,6 +34,58 @@ public class ClientDAO extends BaseJdbcDao {
     	
     }
     
+    public Client createClient(Client client)
+    {
+		try {
+			final SqlParameterSource parameterSource = new MapSqlParameterSource()
+	                .addValue("client_id", client.id)
+	                .addValue("first_name", client.first_name)
+	                .addValue("middle_name", client.middle_name)
+	                .addValue("last_name", client.last_name)
+	                .addValue("name_data_quality", client.name_data_quality)
+	                .addValue("ssn", client.ssn)
+	                .addValue("ssn_data_quality", client.ssn_data_quality)
+	                .addValue("dob", client.date_of_birth)
+	                .addValue("dob_data_quality", client.date_of_birth_quality)
+	                .addValue("am_indian_ak_native", client.is_american_indian)
+	                .addValue("asian", client.is_asian)
+	                .addValue("black", client.is_black)
+	                .addValue("native_hi_other_pacific", client.is_pacific_islander)
+	                .addValue("race_none", client.has_no_race_data)
+	                .addValue("gender", client.gender.getGender())
+	                .addValue("other_gender", client.gender.getOtherGender())
+	                .addValue("veteran_status", client.veteran_status.toColumnValue())
+	                .addValue("year_entered_service", client.year_entered_service)
+	                .addValue("year_separated", client.year_left_service)
+	                .addValue("world_war_ii", client.is_ww2_vet)
+	                .addValue("korean_war", client.is_korean_war_vet)
+	                .addValue("vietnam_war", client.is_vietnam_war_vet)
+	                .addValue("desert_storm", client.is_desert_storm_vet)
+	                .addValue("afghanistan_oef", client.is_afghanistan_oef_vet)
+	                .addValue("iraq_oif", client.is_iraq_oif_vet)
+	                .addValue("iraq_ond", client.is_iraq_ond_vet)
+	                .addValue("other_theater", client.is_other_theater_vet)
+	                .addValue("military_branch", client.military_branch)
+	                .addValue("discharge_status", client.discharge_status)
+	                .addValue("date_created", client.date_created)
+	                .addValue("date_updated", client.date_updated)
+	                .addValue("user_id", client.user_id);
+			
+			Number key = clientInsert.executeAndReturnKey(parameterSource);
+			client.id = key.intValue();
+	
+			return client;
+		} catch (Exception e) {
+			LogSystem.LogDBException(e);
+			return null;
+		}
+    }
+    
+    public void updateClient(Client client)
+    {
+    	
+    }
+    
 	
 	private class ClientSQLMapper implements RowMapper<Client> {
 		public Client mapRow(ResultSet rs, int i) {
@@ -43,7 +94,7 @@ public class ClientDAO extends BaseJdbcDao {
 				client.id = rs.getInt("client_id");
 				client.first_name = rs.getString("first_name");
 				client.middle_name = rs.getString("middle_name");
-				client.last_name = rs.getString("short_description");
+				client.last_name = rs.getString("last_name");
 				client.name_data_quality = rs.getInt("name_data_quality");
 				client.ssn = rs.getInt("ssn");
 				client.ssn_data_quality = rs.getInt("ssn_data_quality");
@@ -194,6 +245,58 @@ public class ClientDAO extends BaseJdbcDao {
 			}
 			
 			return enrollment;
+		}
+	}
+	
+	private class ExitSQLMapper implements RowMapper<Exit> {
+		public Exit mapRow(ResultSet rs, int i) {
+			Exit exit = new Exit();
+			try {	
+				exit.id = rs.getInt("exit_id");
+				exit.project_entry_id = rs.getInt("project_entry_id");
+				exit.personal_id = rs.getInt("personal_id");
+				exit.exit_date = rs.getDate("exit_date");
+				exit.destination = rs.getInt("destination");
+				exit.housing_assessment = rs.getInt("housing_assessment");
+				exit.subsidy_information = rs.getInt("subsidy_information");
+				exit.project_completion_status = rs.getInt("project_completion_status");
+				exit.early_exit_reason = rs.getInt("early_exit_reason");
+				exit.date_created = rs.getDate("date_created");
+				exit.date_updated = rs.getDate("date_updated");
+				exit.user_id = rs.getInt("user_id");
+				exit.date_deleted = rs.getDate("date_deleted");
+				exit.export_id = rs.getInt("export_id");
+				
+			} catch (Exception e) {
+				LogSystem.LogDBException(e);
+				return null;
+			}
+			
+			return exit;
+		}
+	}
+	
+	private class FunderSQLMapper implements RowMapper<Funder> {
+		public Funder mapRow(ResultSet rs, int i) {
+			Funder funder = new Funder();
+			try {	
+				funder.id = rs.getInt("funder_id");
+				funder.funder = rs.getInt("funder");
+				funder.grant_id = rs.getInt("grant_id");
+				funder.start_date = rs.getDate("start_date");
+				funder.end_date = rs.getDate("end_date");
+				funder.date_created = rs.getDate("date_created");
+				funder.date_updated = rs.getDate("date_updated");
+				funder.user_id = rs.getInt("user_id");
+				funder.date_deleted = rs.getDate("date_deleted");
+				funder.export_id = rs.getInt("export_id");
+				
+			} catch (Exception e) {
+				LogSystem.LogDBException(e);
+				return null;
+			}
+			
+			return funder;
 		}
 	}
 	
