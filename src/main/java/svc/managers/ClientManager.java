@@ -13,16 +13,9 @@ public class ClientManager {
 	@Inject
 	private ClientDAO clientDAO;
 	
-	public Client createOrUpdateClient(Client client)
+	public Client saveClient(Client client)
 	{
-		if(client.id == 0)
-		{
-			client = clientDAO.createClient(client);
-		}
-		else
-		{
-			clientDAO.updateClient(client);
-		}
+		client = clientDAO.saveClient(client);
 		return client;
 	}
 }

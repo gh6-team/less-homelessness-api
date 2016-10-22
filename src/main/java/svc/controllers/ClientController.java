@@ -22,7 +22,7 @@ public class ClientController {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	Client CreateOrUpdateClient(@RequestBody Client client)
+	Client SaveClient(@RequestBody Client client)
 	{
 		if(client == null)
 		{
@@ -30,6 +30,6 @@ public class ClientController {
 			return null;
 		}
 		
-		return clientManager.createOrUpdateClient(client);
+		return clientManager.saveClient(client);
 	}
 }

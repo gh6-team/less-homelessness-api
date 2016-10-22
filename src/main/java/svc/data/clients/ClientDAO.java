@@ -66,7 +66,7 @@ public class ClientDAO extends BaseJdbcDao {
                 		"user_id");
     }
     
-    public Client createClient(Client client)
+    public Client saveClient(Client client)
     {
 		try {
 			final SqlParameterSource parameterSource = new MapSqlParameterSource()
@@ -112,12 +112,6 @@ public class ClientDAO extends BaseJdbcDao {
 			return null;
 		}
     }
-    
-    public void updateClient(Client client)
-    {
-    	
-    }
-    
 	
 	private class ClientSQLMapper implements RowMapper<Client> {
 		public Client mapRow(ResultSet rs, int i) {
@@ -164,7 +158,7 @@ public class ClientDAO extends BaseJdbcDao {
 		}
 	}
 	
-	private class ClientDiabilitiesSQLMapper implements RowMapper<ClientDisabilities> {
+	private class ClientDisabilitiesSQLMapper implements RowMapper<ClientDisabilities> {
 		public ClientDisabilities mapRow(ResultSet rs, int i) {
 			ClientDisabilities clientDisabilities = new ClientDisabilities();
 			try {	

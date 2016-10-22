@@ -361,3 +361,18 @@ CREATE TABLE shelter_bed_assignments (
     assignment_date date NOT NULL,
     assigned_by integer NOT NULL
 );
+
+CREATE TABLE users {
+	id integer DEFAULT 0 NOT NULL,
+	name varchar(50) NOT NULL,
+	role_name varchar(50) NOT NULL,
+	organization_name varchar(50) NULL
+}
+
+CREATE TABLE user_login {
+	id integer DEFAULT 0 NOT NULL,
+	pwd varchar(50) NOT NULL,
+	user_id varchar(50) NOT NULL
+	
+	PRIMARY KEY (id)
+}
