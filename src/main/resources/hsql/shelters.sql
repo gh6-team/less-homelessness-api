@@ -1,3 +1,5 @@
-INSERT INTO shelters (id,name,address,city, state,zip_code,phone_number,latitude,longitude,allows_men,allows_women,allows_children) VALUES (1,'Ballwin','300 Park Drive','St. Louis','MO','63011','5555555555', 38.597290,-90.541893,1,1,1);
-
-
+INSERT INTO shelters (id,latitude,longitude,name,address,city,state,zip_code,phone_number,allows_men,allows_women,allows_children) VALUES (1,38.59729089,-90.54189364,'Ballwin','300 Park Drive','St. Louis','MO','63011','5555555555',1,1,1);
+INSERT INTO shelters (id,latitude,longitude,name,address,city,state,zip_code,phone_number,allows_men,allows_women,allows_children) VALUES (2,38.54256229,-90.28909176,'Bella Villa','751 Avenue H','St. Louis','MO','63125','5555555555',1,1,1);
+INSERT INTO shelters (id,latitude,longitude,name,address,city,state,zip_code,phone_number,allows_men,allows_women,allows_children) VALUES (3,38.74151895,-90.22576437,'Bellefontaine Neighbors','9641 Bellefontaine Road','St. Louis','MO','63137','5555555555',1,1,1);
+INSERT INTO shelters (id,latitude,longitude,name,address,city,state,zip_code,phone_number,allows_men,allows_women,allows_children) VALUES (4,38.70896713,-90.31745003,'Bel-Nor','8416 Natural Bridge Road','St. Louis','MO','63121','5555555555',1,1,1);
+INSERT INTO shelters (id,latitude,longitude,name,address,city,state,zip_code,phone_number,allows_men,allows_women,allows_children) VALUES (5,38.71566804,-90.32623591,'Bel-Ridge','8920 Natural Bridge Road','St. Louis','MO','63121','5555555555',1,1,1);

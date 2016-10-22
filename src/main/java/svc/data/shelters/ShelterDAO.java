@@ -73,10 +73,15 @@ public class ShelterDAO extends BaseJdbcDao {
                 shelter.id = rs.getInt("id");
                 shelter.name = rs.getString("name");
                 shelter.address = rs.getString("address");
+                shelter.city = rs.getString("city");
                 shelter.state = rs.getString("state");
                 shelter.zip_code = rs.getString("zip_code");
                 shelter.phone_number = rs.getString("phone_number");
-                shelter.location = rs.getString("location");
+                Double latitude = rs.getDouble("latitude");
+                Double longitude = rs.getDouble("longitude");
+                if (latitude != null && longitude != null) {
+                    shelter.location = new LatLng(latitude, longitude);
+                }
                 shelter.allows_men = rs.getInt("allows_men");
                 shelter.allows_women = rs.getInt("allows_women");
                 shelter.allows_children = rs.getInt("allows_children");
