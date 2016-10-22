@@ -111,6 +111,19 @@ public class ShelterDAO extends BaseJdbcDao {
         return count;
     }
 
+    public boolean unassignBed(int shelter_bed_assignment_id) {
+        try {
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            parameterMap.put("shelter_bed_assignment_id", shelter_bed_assignment_id);
+            String sql = "DELETE FROM shelter_bed_assignments WHERE id = :shelter_bed_assignment_id";
+            jdbcTemplate.update(sql, parameterMap);
+            return true;
+        } catch (Exception e) {
+            LogSystem.LogDBException(e);
+            return false;
+        }
+    }
+
     private class ShelterSQLMapper implements RowMapper<Shelter> {
         public Shelter mapRow(ResultSet rs, int i) {
             Shelter shelter = new Shelter();

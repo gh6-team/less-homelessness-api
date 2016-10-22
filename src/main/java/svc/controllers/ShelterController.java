@@ -52,21 +52,32 @@ public class ShelterController {
 		return new ShelterBedAssignmentsDTO(shelterManager.GetBedAssignmentsForShelter(id.intValue()));
 	}
 
-	@ResponseBody
-	@RequestMapping(method = RequestMethod.POST, value="/{id}/bed_assignments")
-	ShelterBedAssignment AssignBed(@RequestBody ShelterBedAssignment shelterBedAssignment) {
-		if (shelterBedAssignment == null) {
-			LogSystem.LogEvent("Null bed assignment passed to post.");
-			return null;
-		}
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST, value = "/{id}/bed_assignments")
+    ShelterBedAssignment AssignBed(@RequestBody ShelterBedAssignment shelterBedAssignment) {
+        if (shelterBedAssignment == null) {
+            LogSystem.LogEvent("Null bed assignment passed to post.");
+            return null;
+        }
 
-		if (shelterBedAssignment.id != 0) {
-			LogSystem.LogEvent("shelterBedAssignment with id was passed to post.");
-			return null;
-		}
+        if (shelterBedAssignment.id != 0) {
+            LogSystem.LogEvent("shelterBedAssignment with id was passed to post.");
+            return null;
+        }
 
-		return shelterManager.assignBed(shelterBedAssignment);
-	}
+        return shelterManager.assignBed(shelterBedAssignment);
+    }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST, value = "/{id}/unassign_bed")
+    Boolean UnassignBed(@PathVariable("id") Long id, @RequestParam(value = "bed_assignment_id", required = false) Long bed_assignment_id) {
+        if (bed_assignment_id == null) {
+            LogSystem.LogEvent("Null bed assignment passed to post.");
+            return null;
+        }
+
+        return shelterManager.unassignBed(bed_assignment_id.intValue());
+    }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/available_bed_count")

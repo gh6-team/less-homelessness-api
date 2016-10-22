@@ -37,4 +37,8 @@ public class ShelterManager {
     public Long GetAvailableBedCount(int shelterId) {
         return shelterDAO.getAvailableBedCount(shelterId);
     }
+
+    public Boolean unassignBed(int shelter_bed_assignment_id) {
+        return shelterDAO.unassignBed(shelter_bed_assignment_id);
+    }
 }
