@@ -33,24 +33,10 @@ public class TwilioController {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
-	MessagingResponse Inbound(@RequestParam("From") String from, @RequestBody String body) throws TwiMLException {
+	MessagingResponse Inbound(@RequestParam("From") String from, @RequestParam("Body") String body) throws TwiMLException {
 		String message = twilioManager.getResponse(from, body);
 		Message twilioMessage = new Message.Builder().body(new Body(message)).build();
 		MessagingResponse twilioResponse = new MessagingResponse.Builder().message(twilioMessage).build();
 		return twilioResponse;
-	}
-
-	@ModelAttribute
-	protected void logging(HttpServletRequest request, HttpServletResponse response) {
-		Enumeration headerNames = request.getHeaderNames();
-		while (headerNames.hasMoreElements()) {
-			String headerName = (String) headerNames.nextElement();
-			LogSystem.LogEvent("Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
-		}
-		Enumeration params = request.getParameterNames();
-		while (params.hasMoreElements()) {
-			String paramName = (String) params.nextElement();
-			LogSystem.LogEvent("Parameter Name - " + paramName + ", Value - " + request.getParameter(paramName));
-		}
 	}
 }

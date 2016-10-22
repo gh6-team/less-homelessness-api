@@ -17,6 +17,11 @@ public class TwilioManager {
 	public String getResponse(String from, String message)
 	{
 		User user = userDAO.getUserByPhone(from);
+		if("joke".equalsIgnoreCase(message))
+		{
+			return "New phone, who dis?";
+		}
+		
 		if("bed".equalsIgnoreCase(message))
 		{
 			if(user == null)
