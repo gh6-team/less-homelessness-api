@@ -34,7 +34,7 @@ CREATE TABLE clients (
     date_created date NULL,
     date_updated date NULL,
     user_id INTEGER NULL,
-    primary key (client_id)
+    primary key (client_id, date_updated)
 );
 
 CREATE TABLE disabilities (
@@ -199,18 +199,17 @@ CREATE TABLE exit (
 	primary key (exit_id)
 );
 
-
 CREATE TABLE funder (
     funder_id integer NULL,
     project_id integer NULL,
     funder integer NULL,
     grant_id integer NULL,
-    start_date TIMESTAMP NULL,
-    end_date TIMESTAMP NULL,
-    date_created TIMESTAMP NOT NULL,
-    date_updated TIMESTAMP NOT NULL,
+    start_date date NULL,
+    end_date date NULL,
+    date_created date NOT NULL,
+    date_updated date NOT NULL,
     user_id integer NULL,
-    date_deleted TIMESTAMP NULL,
+    date_deleted date NULL,
     export_id integer NULL,
     primary key (funder_id)
 );
@@ -219,7 +218,7 @@ CREATE TABLE health_and_dvid (
     health_and_dvid integer NULL,
     project_entry_id integer NULL,
     personal_id integer NULL,
-    information_date TIMESTAMP NULL,
+    information_date date NULL,
     domestic_violence_victim integer NULL,
     when_occurred integer NULL,
     currently_fleeing integer NULL,
@@ -227,12 +226,12 @@ CREATE TABLE health_and_dvid (
     dental_health_status integer NULL,
     mental_health_status integer NULL,
     pregnancy_status integer NULL,
-    due_date TIMESTAMP NULL,
+    due_date date NULL,
     data_collection_stage integer NULL,
-    date_created TIMESTAMP NOT NULL,
-    date_updated TIMESTAMP NOT NULL,
+    date_created date NOT NULL,
+    date_updated date NOT NULL,
     user_id integer NULL,
-    date_deleted TIMESTAMP NULL,
+    date_deleted date NULL,
     export_id integer NULL,
     primary key (health_and_dvid)
 );
@@ -241,7 +240,7 @@ CREATE TABLE income_benefits (
     income_benefits_id integer NULL,
     project_entry_id integer NULL,
     personal_id integer NULL,
-    information_date TIMESTAMP NULL,
+    information_date date NULL,
     income_from_any_source integer NULL,
     total_monthly_income decimal NULL,
     earned integer NULL,
@@ -306,11 +305,11 @@ CREATE TABLE income_benefits (
     no_hivaids_assistance_reason varchar(50) NULL,
     adap integer NULL,
     no_adap_reason varchar(50) NULL,
-    data_collection_stage,
-    date_created TIMESTAMP NOT NULL,
-    date_updated TIMESTAMP NOT NULL,
+    data_collection_stage integer NULL,
+    date_created date NOT NULL,
+    date_updated date NOT NULL,
     user_id integer NULL,
-    date_deleted TIMESTAMP NULL,
+    date_deleted date NULL,
     export_id integer NULL,
     primary key (income_benefits_id)
 );
@@ -319,17 +318,17 @@ CREATE TABLE services (
     services_id integer NULL,
     project_entry_id integer NULL,
     personal_id integer NULL,
-    date_provided TIMESTAMP NULL,
+    date_provided date NULL,
     record_type integer NULL,
     type_provided integer NULL,
     other_type_provided integer NULL,
     sub_type_provided integer NULL,
     fa_amount integer NULL,
     referral_outcome integer NULL,
-    date_created TIMESTAMP NOT NULL,
-    date_updated TIMESTAMP NOT NULL,
+    date_created date NOT NULL,
+    date_updated date NOT NULL,
     user_id integer NULL,
-    date_deleted TIMESTAMP NULL,
+    date_deleted date NULL,
     export_id integer NULL,
     primary key (services_id)
 );
@@ -360,3 +359,8 @@ CREATE TABLE shelter_bed_assignments (
     assignment_date date NOT NULL,
     assigned_by integer NOT NULL
 );
+
+
+
+
+
