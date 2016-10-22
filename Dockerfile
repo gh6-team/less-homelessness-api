@@ -6,6 +6,6 @@ WORKDIR /usr/src/app
 ADD . /usr/src/app
 
 RUN mvn clean install
-RUN ln -sfn target/$(ls target | grep stlcourts-api-* | grep -v original) stlcourts-api.jar
+RUN ln -sfn target/$(ls target | grep lesshomelessness-api-* | grep -v original) lesshomelessness-api.jar
 
-CMD ["java","-jar","stlcourts-api.jar"]
+CMD ["java","-jar","lesshomelessness-api.jar"]
