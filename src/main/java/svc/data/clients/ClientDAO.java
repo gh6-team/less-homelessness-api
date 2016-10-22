@@ -19,9 +19,27 @@ public class ClientDAO extends BaseJdbcDao {
 	private SimpleJdbcInsert clientInsert;
 	private SimpleJdbcInsert clientInsertExisting;
 	private SimpleJdbcInsert clientDisabilitiesInsert;
+	private SimpleJdbcInsert employmentEducationInsert;
 
     @Override
 	protected void createSimpleJdbcInserts(DataSource dataSource) {
+    	employmentEducationInsert = new SimpleJdbcInsert(dataSource)
+    			.withTableName("employment_education")
+    			.usingGeneratedKeyColumns("employment_education_id")
+    			.usingColumns("project_entry_id",
+    					"personal_id",
+    					"information_date",
+    					"last_grade_completed",
+    					"school_status",
+    					"employed",
+    					"employment_type",
+    					"not_employed_reason",
+    					"data_collection_stage",
+    					"date_created",
+    					"date_updated",
+    					"user_id",
+    					"date_deleted",
+    					"export_id");
     	clientDisabilitiesInsert = new SimpleJdbcInsert(dataSource)
     			.withTableName("disabilities")
     			.usingGeneratedKeyColumns("disabilities_id")
@@ -141,11 +159,27 @@ public class ClientDAO extends BaseJdbcDao {
 				clientInsertExisting.execute(clientParameters);
 			}
 			saveClientDisabilities(client);
+			saveEmploymentEducation(client);
 			return client;
 		} catch (Exception e) {
 			LogSystem.LogDBException(e);
 			return null;
 		}
+    }
+    
+    private void saveEmploymentEducation(Client client)
+    {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("loginId", client.id);
+		String sql = "DELETE FROM employment_education WHERE personal_id = :loginId";
+		jdbcTemplate.update(sql, parameterMap);
+		
+	    EmploymentEducation employmentEducation = client.employment_education_details;
+	    employmentEducation.personal_id = client.id;
+	    MapSqlParameterSource employmentParameters = getEmploymentParameters(employmentEducation);
+	    Number key = employmentEducationInsert.executeAndReturnKey(employmentParameters);
+	    employmentEducation.id = key.intValue();
     }
     
     private void saveClientDisabilities(Client client)
@@ -163,6 +197,25 @@ public class ClientDAO extends BaseJdbcDao {
     	}
     }
 
+    private MapSqlParameterSource getEmploymentParameters(EmploymentEducation employment)
+    {
+    	return new MapSqlParameterSource()
+    			.addValue("employement_education_id", employment.id)
+    			.addValue("project_entry_id", employment.project_entry_id)
+    			.addValue("personal_id", employment.personal_id)
+    			.addValue("information_date", employment.information_date)
+    			.addValue("last_grade_completed", employment.last_grade_completed)
+    			.addValue("school_status", employment.school_status)
+    			.addValue("employed", employment.employed_status)
+    			.addValue("employment_type", employment.employment_type)
+    			.addValue("not_employed_reason", employment.not_employed_reason)
+    			.addValue("data_collection_stage", employment.data_collection_stage)
+    			.addValue("date_created", employment.date_created)
+    			.addValue("date_updated", employment.date_updated)
+    			.addValue("user_id", employment.user_id)
+    			.addValue("date_deleted", employment.date_deleted)
+    			.addValue("export_id", employment.export_id);
+    }
     private MapSqlParameterSource getDisabilityParameters(ClientDisabilities disability)
     {
     	return new MapSqlParameterSource()
@@ -234,11 +287,26 @@ public class ClientDAO extends BaseJdbcDao {
             Client client = jdbcTemplate.queryForObject(sql, parameterMap, new ClientSQLMapper());
             String disabilitySql = "SELECT * FROM disabilities WHERE personal_id = :client_id";
             client.disabilities = jdbcTemplate.query(disabilitySql, parameterMap, new ClientDisabilitiesSQLMapper());
+            client.employment_education_details = getEmploymentEducation(client_id);
             return client;
         } catch (Exception e) {
             LogSystem.LogDBException(e);
             return null;
         }
+    }
+    
+    public EmploymentEducation getEmploymentEducation(int client_id)
+    {
+    	try
+    	{
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            parameterMap.put("client_id", client_id);
+	    	String employmentSql = "SELECT * FROM employment_education WHERE personal_id = :client_id";
+	        return jdbcTemplate.queryForObject(employmentSql, parameterMap, new EmploymentEducationSQLMapper());
+    	}catch(Exception e){
+    		LogSystem.LogDBException(e);
+    		return new EmploymentEducation();
+    	}
     }
 
     private class ClientSQLMapper implements RowMapper<Client> {
@@ -327,7 +395,7 @@ public class ClientDAO extends BaseJdbcDao {
 		public EmploymentEducation mapRow(ResultSet rs, int i) {
 			EmploymentEducation employmentEducation = new EmploymentEducation();
 			try {	
-				employmentEducation.id = rs.getInt("employement_education_id");
+				employmentEducation.id = rs.getInt("employment_education_id");
 				employmentEducation.project_entry_id = rs.getInt("project_entry_id");
 				employmentEducation.personal_id = rs.getInt("personal_id");
 				employmentEducation.information_date = rs.getDate("information_date");
