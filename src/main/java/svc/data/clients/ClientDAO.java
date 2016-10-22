@@ -1,6 +1,7 @@
 package svc.data.clients;
 
 import java.sql.ResultSet;
+import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -30,8 +31,39 @@ public class ClientDAO extends BaseJdbcDao {
     	clientInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("client")
                 .usingGeneratedKeyColumns("id")
-                .usingColumns("client_id", "first_name", "middle_name", "last_name", "user_id");
-    	
+                .usingColumns(
+                		"client_id", 
+                		"first_name", 
+                		"middle_name", 
+                		"last_name", 
+                		"name_data_quality",
+                		"ssn",
+                		"ssn_data_quality",
+                		"dob",
+                		"dob_data_quality",
+                		"am_indian_ak_native",
+                		"asian",
+                		"black",
+                		"native_hi_other_pacific",
+                		"race_none",
+                		"gender",
+                		"other_gender",
+                		"veteran_status",
+                		"year_entered_service",
+                		"year_separated",
+                		"world_war_ii",
+                		"korean_war",
+                		"vietnam_war",
+                		"desert_storm",
+                		"afghanistan_oef",
+                		"iraq_oif",
+                		"iraq_ond",
+                		"other_theater",
+                		"military_branch",
+                		"discharge_status",
+                		"date_created",
+                		"date_updated",
+                		"user_id");
     }
     
     public Client createClient(Client client)
@@ -68,7 +100,7 @@ public class ClientDAO extends BaseJdbcDao {
 	                .addValue("military_branch", client.military_branch)
 	                .addValue("discharge_status", client.discharge_status)
 	                .addValue("date_created", client.date_created)
-	                .addValue("date_updated", client.date_updated)
+	                .addValue("date_updated", new Date())
 	                .addValue("user_id", client.user_id);
 			
 			Number key = clientInsert.executeAndReturnKey(parameterSource);
