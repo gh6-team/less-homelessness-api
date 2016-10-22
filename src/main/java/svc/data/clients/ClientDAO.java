@@ -21,6 +21,8 @@ import svc.models.VeteranStatus;
 import svc.models.ClientDisabilities;
 import svc.models.EmploymentEducation;
 import svc.models.Enrollment;
+import svc.models.Exit;
+import svc.models.Funder;
 
 @Repository
 public class ClientDAO extends BaseJdbcDao {
@@ -194,6 +196,58 @@ public class ClientDAO extends BaseJdbcDao {
 			}
 			
 			return enrollment;
+		}
+	}
+	
+	private class ExitSQLMapper implements RowMapper<Exit> {
+		public Exit mapRow(ResultSet rs, int i) {
+			Exit exit = new Exit();
+			try {	
+				exit.id = rs.getInt("exit_id");
+				exit.project_entry_id = rs.getInt("project_entry_id");
+				exit.personal_id = rs.getInt("personal_id");
+				exit.exit_date = rs.getDate("exit_date");
+				exit.destination = rs.getInt("destination");
+				exit.housing_assessment = rs.getInt("housing_assessment");
+				exit.subsidy_information = rs.getInt("subsidy_information");
+				exit.project_completion_status = rs.getInt("project_completion_status");
+				exit.early_exit_reason = rs.getInt("early_exit_reason");
+				exit.date_created = rs.getDate("date_created");
+				exit.date_updated = rs.getDate("date_updated");
+				exit.user_id = rs.getInt("user_id");
+				exit.date_deleted = rs.getDate("date_deleted");
+				exit.export_id = rs.getInt("export_id");
+				
+			} catch (Exception e) {
+				LogSystem.LogDBException(e);
+				return null;
+			}
+			
+			return exit;
+		}
+	}
+	
+	private class FunderSQLMapper implements RowMapper<Funder> {
+		public Funder mapRow(ResultSet rs, int i) {
+			Funder funder = new Funder();
+			try {	
+				funder.id = rs.getInt("funder_id");
+				funder.funder = rs.getInt("funder");
+				funder.grant_id = rs.getInt("grant_id");
+				funder.start_date = rs.getDate("start_date");
+				funder.end_date = rs.getDate("end_date");
+				funder.date_created = rs.getDate("date_created");
+				funder.date_updated = rs.getDate("date_updated");
+				funder.user_id = rs.getInt("user_id");
+				funder.date_deleted = rs.getDate("date_deleted");
+				funder.export_id = rs.getInt("export_id");
+				
+			} catch (Exception e) {
+				LogSystem.LogDBException(e);
+				return null;
+			}
+			
+			return funder;
 		}
 	}
 	

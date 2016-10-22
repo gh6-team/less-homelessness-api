@@ -31,7 +31,8 @@ CREATE TABLE clients (
     discharge_status int NULL,
     date_created date NULL,
     date_updated date NULL,
-    user_id int NULL
+    user_id int NULL,
+    primary key (client_id)
 );
 
 DROP TABLE IF EXISTS disabilities;
@@ -58,7 +59,8 @@ CREATE TABLE disabilities (
 	date_updated date NULL,
 	user_id int NULL,
 	date_deleted date NULL,
-	export_id int NULL
+	export_id int NULL,
+	primary key (disabilities_id)
 );
 
 DROP TABLE IF EXISTS employment_education;
@@ -77,7 +79,8 @@ CREATE TABLE employment_education (
 	date_updated date NULL,
 	user_id int NULL,
 	date_deleted date NULL,
-	export_id int NULL
+	export_id int NULL,
+	primary key (employment_education_id)
 );
 
 DROP TABLE IF EXISTS enrollment;
@@ -161,7 +164,8 @@ CREATE TABLE enrollment (
 	date_updated date NULL,
 	user_id int NULL,
 	date_deleted date NULL,
-	export_id int NULL
+	export_id int NULL,
+	primary key (project_entry_id)
 );
 
 DROP TABLE IF EXISTS exit;
@@ -193,7 +197,8 @@ CREATE TABLE exit (
 	date_updated date NULL,
 	user_id int NULL,
 	date_deleted date NULL,
-	export_id int NULL
+	export_id int NULL,
+	primary key (exit_id)
 );
 
 
@@ -209,7 +214,8 @@ CREATE TABLE funder (
     date_updated TIMESTAMP NOT NULL,
     user_id integer NULL,
     date_deleted TIMESTAMP NULL,
-    export_id integer NULL
+    export_id integer NULL,
+    primary key (funder_id)
 );
 
 DROP TABLE IF EXISTS health_and_dvid;
@@ -231,7 +237,8 @@ CREATE TABLE health_and_dvid (
     date_updated TIMESTAMP NOT NULL,
     user_id integer NULL,
     date_deleted TIMESTAMP NULL,
-    export_id integer NULL
+    export_id integer NULL,
+    primary key (health_and_dvid)
 );
 
 DROP TABLE IF EXISTS income_benefits;
@@ -309,7 +316,8 @@ CREATE TABLE income_benefits (
     date_updated TIMESTAMP NOT NULL,
     user_id integer NULL,
     date_deleted TIMESTAMP NULL,
-    export_id integer NULL
+    export_id integer NULL,
+    primary key (income_benefits_id)
 );
 
 DROP TABLE IF EXISTS services;
@@ -329,4 +337,5 @@ CREATE TABLE services (
     user_id integer NULL,
     date_deleted TIMESTAMP NULL,
     export_id integer NULL
+    primary key (services_id)
 );
