@@ -16,7 +16,7 @@ public class TwilioManager {
 	
 	public String getResponse(String from, String message)
 	{
-		User user = null;//userDAO.findByPhone(from);
+		User user = userDAO.getUserByPhone(from);
 		if("bed".equalsIgnoreCase(message))
 		{
 			if(user == null)

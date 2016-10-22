@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class TwilioController {
 	TwilioManager twilioManager;
 
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
 	MessagingResponse Inbound(@RequestParam("From") String from, @RequestBody String body) throws TwiMLException {
 		String message = twilioManager.getResponse(from, body);
 		Message twilioMessage = new Message.Builder().body(new Body(message)).build();
