@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Enrollment {
 	public int id;
+	public int project_entry_id;
 	public int personal_id;
 	public int project_id;
 	public Date entry_date;

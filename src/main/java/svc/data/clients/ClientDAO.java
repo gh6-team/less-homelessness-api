@@ -202,7 +202,8 @@ public class ClientDAO extends BaseJdbcDao {
 		public Enrollment mapRow(ResultSet rs, int i) {
 			Enrollment enrollment = new Enrollment();
 			try {	
-				enrollment.id = rs.getInt("project_entry_id");
+				enrollment.id = rs.getInt("enrollment_id");
+				enrollment.project_entry_id = rs.getInt("project_entry_id");
 				enrollment.personal_id = rs.getInt("personal_id");
 				enrollment.project_id = rs.getInt("project_id");
 				enrollment.entry_date = rs.getDate("entry_date");

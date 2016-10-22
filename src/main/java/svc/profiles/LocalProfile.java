@@ -18,6 +18,8 @@ public class LocalProfile {
 				.addScript("hsql/schema-tables.sql")
 				.addScript("hsql/clients.sql")
 				.addScript("hsql/disabilities.sql")
+				.addScript("hsql/employment_education.sql")
+				.addScript("hsql/enrollment.sql")
 				.build();
 	}
 }

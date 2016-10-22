@@ -85,6 +85,7 @@ CREATE TABLE employment_education (
 );
 
 CREATE TABLE enrollment (
+	enrollment_id INTEGER NOT NULL,
     project_entry_id INTEGER NOT NULL,
     personal_id INTEGER NOT NULL,
     project_id INTEGER NOT NULL,
@@ -122,6 +123,7 @@ CREATE TABLE enrollment (
 	child_welfare_months INTEGER NULL,
 	former_ward_juvenile_justice INTEGER NULL,
 	juvenile_justice_years INTEGER NULL,
+	juvenile_justice_months INTEGER NULL,
 	household_dynamics INTEGER NULL,
 	sexual_orientation_gender_id_youth INTEGER NULL,
 	sexual_orientation_gender_id_fam INTEGER NULL,
@@ -165,7 +167,7 @@ CREATE TABLE enrollment (
 	user_id INTEGER NULL,
 	date_deleted date NULL,
 	export_id INTEGER NULL,
-	primary key (project_entry_id, date_updated)
+	primary key (enrollment_id)
 );
 
 CREATE TABLE exit (
