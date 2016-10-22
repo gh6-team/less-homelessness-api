@@ -2,9 +2,12 @@ package svc.managers;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Component;
+
 import svc.data.users.UserDAO;
 import svc.models.User;
 
+@Component
 public class UserManager {
 	@Inject
 	private UserDAO userDAO;

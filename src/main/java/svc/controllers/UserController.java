@@ -24,7 +24,7 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value="/login")
-	User Login(@RequestBody Credentials credentials) throws AuthenticationException {
+	public User Login(@RequestBody Credentials credentials) throws AuthenticationException {
 		User user = userManager.Login(credentials.userId, credentials.password);
 		if (user == null) {
 			throw new AuthenticationException();
