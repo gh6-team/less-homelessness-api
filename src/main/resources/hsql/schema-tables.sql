@@ -370,7 +370,7 @@ CREATE TABLE users (
 	name varchar(50) NOT NULL,
 	role_name varchar(50) NOT NULL,
 	organization_name varchar(50) NULL,
-	
+	phone varchar(15) NULL,
 	PRIMARY KEY (id)
 );
 
