@@ -6,7 +6,7 @@ CREATE TABLE clients (
     first_name varchar(50) NULL,
     middle_name varchar(50) NULL,
     last_name varchar(50) NULL,
-    name_data_quality varchar(50) NULL,
+    name_data_quality INTEGER NULL,
     ssn INTEGER NULL,
     ssn_data_quality INTEGER NULL,
     dob date NULL,
@@ -33,7 +33,7 @@ CREATE TABLE clients (
     military_branch INTEGER NULL,
     discharge_status INTEGER NULL,
     date_created date NULL,
-    date_updated date NULL,
+    date_updated date NOT NULL,
     user_id INTEGER NULL,
     primary key (client_id, date_updated)
 );
@@ -364,6 +364,22 @@ CREATE TABLE shelter_bed_assignments (
     assigned_by integer NOT NULL
 );
 
+CREATE TABLE users (
+	id integer DEFAULT 0 NOT NULL,
+	name varchar(50) NOT NULL,
+	role_name varchar(50) NOT NULL,
+	organization_name varchar(50) NULL,
+	
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE user_login (
+	id integer DEFAULT 0 NOT NULL,
+	pwd varchar(50) NOT NULL,
+	userid varchar(50) NOT NULL,
+	
+	PRIMARY KEY (id)
+);
 
 
 

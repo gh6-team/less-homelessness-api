@@ -12,6 +12,7 @@ public abstract class BaseJdbcDao {
 	@Inject
 	public void setDataSource(DataSource dataSource) { 
 		jdbcTemplate = new NamedParameterJdbcTemplate(dataSource); 
+		createSimpleJdbcInserts(dataSource);
 	}
 
     // Override to define any SimpleJdbcInsert objects needed by the DAO.
