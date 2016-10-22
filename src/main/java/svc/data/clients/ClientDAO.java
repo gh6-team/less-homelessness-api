@@ -1,26 +1,18 @@
 package svc.data.clients;
 
-import java.sql.ResultSet;
-import java.util.Date;
-
-import javax.sql.DataSource;
-
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-
 import svc.data.jdbc.BaseJdbcDao;
 import svc.logging.LogSystem;
-import svc.models.Client;
-import svc.models.Gender;
-import svc.models.VeteranStatus;
-import svc.models.ClientDisabilities;
-import svc.models.EmploymentEducation;
-import svc.models.Enrollment;
-import svc.models.Exit;
-import svc.models.Funder;
+import svc.models.*;
+
+import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class ClientDAO extends BaseJdbcDao {
@@ -156,9 +148,22 @@ public class ClientDAO extends BaseJdbcDao {
 			return null;
 		}
     }
-	
-	private class ClientSQLMapper implements RowMapper<Client> {
-		public Client mapRow(ResultSet rs, int i) {
+
+    public Client getClientById(Long client_id) {
+        try {
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            parameterMap.put("client_id", client_id);
+            String sql = "SELECT * FROM clients WHERE client_id = :client_id";
+            Client client = jdbcTemplate.queryForObject(sql, parameterMap, new ClientSQLMapper());
+            return client;
+        } catch (Exception e) {
+            LogSystem.LogDBException(e);
+            return null;
+        }
+    }
+
+    private class ClientSQLMapper implements RowMapper<Client> {
+        public Client mapRow(ResultSet rs, int i) {
 			Client client = new Client();
 			try {	
 				client.id = rs.getInt("client_id");
@@ -170,8 +175,8 @@ public class ClientDAO extends BaseJdbcDao {
 				client.ssn_data_quality = rs.getInt("ssn_data_quality");
 				client.date_of_birth = rs.getDate("dob");
 				client.date_of_birth_quality = rs.getInt("dob_data_quality");
-				client.is_american_indian = rs.getBoolean("am_indian_ak_native");
-				client.is_asian = rs.getBoolean("asian");
+                client.is_american_indian = rs.getBoolean("am_ind_ak_native");
+                client.is_asian = rs.getBoolean("asian");
 				client.is_black = rs.getBoolean("black");
 				client.is_pacific_islander = rs.getBoolean("native_hi_other_pacific");
 				client.has_no_race_data = rs.getBoolean("race_none");

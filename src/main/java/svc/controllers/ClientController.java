@@ -1,17 +1,12 @@
 package svc.controllers;
 
-import javax.inject.Inject;
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import svc.logging.LogSystem;
 import svc.managers.ClientManager;
 import svc.models.Client;
+
+import javax.inject.Inject;
 
 @RestController
 @EnableAutoConfiguration
@@ -32,4 +27,15 @@ public class ClientController {
 		
 		return clientManager.saveClient(client);
 	}
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    Client GetClient(@PathVariable("id") Long id) {
+        if (id == null) {
+            LogSystem.LogEvent("Null id passed to controller");
+        }
+
+        return clientManager.GetClientById(id);
+    }
+
 }

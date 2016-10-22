@@ -1,11 +1,10 @@
 package svc.managers;
 
-import javax.inject.Inject;
-
 import org.springframework.stereotype.Component;
-
 import svc.data.clients.ClientDAO;
 import svc.models.Client;
+
+import javax.inject.Inject;
 
 @Component
 public class ClientManager {
@@ -18,4 +17,8 @@ public class ClientManager {
 		client = clientDAO.saveClient(client);
 		return client;
 	}
+
+    public Client GetClientById(Long id) {
+        return clientDAO.getClientById(id);
+    }
 }
