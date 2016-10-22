@@ -26,10 +26,11 @@ public class TwilioController {
 	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	String Inbound(@RequestParam("From") String from, @RequestBody String body) throws TwiMLException
+	MessagingResponse Inbound(@RequestParam("From") String from, @RequestBody String body) throws TwiMLException
 	{
-		Message twilioMessage = new Message.Builder().body(new Body("Message from: " + from)).build();
+		String message = twilioManager.getResponse(from, body);
+		Message twilioMessage = new Message.Builder().body(new Body(message)).build();
 		MessagingResponse twilioResponse = new MessagingResponse.Builder().message(twilioMessage).build();
-		return twilioResponse.toXml();
+		return twilioResponse;
 	}
 }
