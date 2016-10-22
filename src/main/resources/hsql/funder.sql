@@ -1,0 +1,6 @@
+INSERT INTO funder (funder_id,project_id,funder,start_date,end_date,date_created ,date_updated ,user_id,export_id) VALUES(254,79,33,'2010-10-1','9999-12-31','2014-10-10','2014-12-12',178107,8094)
+INSERT INTO funder (funder_id,project_id,funder,start_date,end_date,date_created ,date_updated ,user_id,export_id) VALUES(255,130,33,'2010-10-1','9999-12-31','2014-10-10','2014-12-12',178107,8094)
+INSERT INTO funder (funder_id,project_id,funder,start_date,end_date,date_created ,date_updated ,user_id,export_id) VALUES(256,78,33,'2010-10-1','9999-12-31','2014-10-10','2014-12-12',178107,8094)
+INSERT INTO funder (funder_id,project_id,funder,start_date,end_date,date_created ,date_updated ,user_id,export_id) VALUES(282,79,16,'2010-10-1','9999-12-31','2014-12-12','2014-12-12',178107,8094)
+INSERT INTO funder (funder_id,project_id,funder,start_date,end_date,date_created ,date_updated ,user_id,export_id) VALUES(283,130,16,'2010-10-1','9999-12-31','2014-12-12','2014-12-12',178107,8094)
+INSERT INTO funder (funder_id,project_id,funder,start_date,end_date,date_created ,date_updated ,user_id,export_id) VALUES(284,78,16,'2010-10-1','9999-12-31','2014-12-12','2014-12-12',178107,8094)
