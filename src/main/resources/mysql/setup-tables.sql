@@ -356,7 +356,7 @@ DROP TABLE IF EXISTS shelter_bed_assignments;
 CREATE TABLE shelter_bed_assignments (
     id integer DEFAULT 0 NOT NULL,
     shelter_bed_id integer NOT NULL,
-    assigned_to_client_id integer NULL,
+    assigned_to_client_id integer NOT NULL,
     assignment_date date NOT NULL,
     assigned_by integer NOT NULL
 );
