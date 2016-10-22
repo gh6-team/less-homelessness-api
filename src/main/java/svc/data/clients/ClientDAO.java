@@ -149,7 +149,7 @@ public class ClientDAO extends BaseJdbcDao {
 		}
     }
 
-    public Client getClientById(Long client_id) {
+    public Client getClientById(int client_id) {
         try {
             Map<String, Object> parameterMap = new HashMap<String, Object>();
             parameterMap.put("client_id", client_id);

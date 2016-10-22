@@ -39,7 +39,7 @@ public class TwilioManager {
 		
 		if("bed".equalsIgnoreCase(message))
 		{
-			Client client = null;//clientDAO.getClientById(user.client_id);
+			Client client =  clientDAO.getClientById(user.client_id);
 			Shelter shelter = findShelter(client);
 			
 			if(shelter == null)

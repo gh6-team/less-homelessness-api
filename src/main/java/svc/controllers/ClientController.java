@@ -30,7 +30,7 @@ public class ClientController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    Client GetClient(@PathVariable("id") Long id) {
+    Client GetClient(@PathVariable("id") Integer id) {
         if (id == null) {
             LogSystem.LogEvent("Null id passed to controller");
         }

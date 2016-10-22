@@ -18,7 +18,7 @@ public class ClientManager {
 		return client;
 	}
 
-    public Client GetClientById(Long id) {
+    public Client GetClientById(int id) {
         return clientDAO.getClientById(id);
     }
 }
