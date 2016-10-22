@@ -33,38 +33,37 @@ public class ClientDAO extends BaseJdbcDao {
                 .withTableName("clients")
                 .usingGeneratedKeyColumns("client_id")
                 .usingColumns(
-                		"client_id",
-                		"first_name", 
-                		"middle_name", 
-                		"last_name", 
-                		"name_data_quality",
-                		"ssn",
-                		"ssn_data_quality",
-                		"dob",
-                		"dob_data_quality",
-                		"am_ind_ak_native",
-                		"asian",
-                		"black",
-                		"native_hi_other_pacific",
-                		"race_none",
-                		"gender",
-                		"other_gender",
-                		"veteran_status",
-                		"year_entered_service",
-                		"year_separated",
-                		"world_war_ii",
-                		"korean_war",
-                		"vietnam_war",
-                		"desert_storm",
-                		"afghanistan_oef",
-                		"iraq_oif",
-                		"iraq_ond",
-                		"other_theater",
-                		"military_branch",
-                		"discharge_status",
-                		"date_created",
-                		"date_updated",
-                		"user_id");
+					"first_name", 
+					"middle_name", 
+					"last_name", 
+					"name_data_quality",
+					"ssn",
+					"ssn_data_quality",
+					"dob",
+					"dob_data_quality",
+					"am_ind_ak_native",
+					"asian",
+					"black",
+					"native_hi_other_pacific",
+					"race_none",
+					"gender",
+					"other_gender",
+					"veteran_status",
+					"year_entered_service",
+					"year_separated",
+					"world_war_ii",
+					"korean_war",
+					"vietnam_war",
+					"desert_storm",
+					"afghanistan_oef",
+					"iraq_oif",
+					"iraq_ond",
+					"other_theater",
+					"military_branch",
+					"discharge_status",
+					"date_created",
+					"date_updated",
+					"user_id");
     	
     	clientInsertExisting = new SimpleJdbcInsert(dataSource)
                 .withTableName("clients")
@@ -142,12 +141,14 @@ public class ClientDAO extends BaseJdbcDao {
 			
 			if(client.id == 0)
 			{
+				LogSystem.LogEvent(clientInsert.getInsertString());
 				Number key = clientInsert.executeAndReturnKey(parameterSource);
 				client.id = key.intValue();
 			}
 			else
 			{
-				clientInsertExisting.execute(parameterSource.addValue("client_id", client.id));
+				parameterSource.addValue("client_id", client.id);
+				clientInsertExisting.execute(parameterSource);
 			}
 			return client;
 		} catch (Exception e) {
@@ -271,7 +272,8 @@ public class ClientDAO extends BaseJdbcDao {
 		public Enrollment mapRow(ResultSet rs, int i) {
 			Enrollment enrollment = new Enrollment();
 			try {	
-				enrollment.id = rs.getInt("project_entry_id");
+				enrollment.id = rs.getInt("enrollment_id");
+				enrollment.project_entry_id = rs.getInt("project_entry_id");
 				enrollment.personal_id = rs.getInt("personal_id");
 				enrollment.project_id = rs.getInt("project_id");
 				enrollment.entry_date = rs.getDate("entry_date");

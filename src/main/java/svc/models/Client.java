@@ -35,5 +35,4 @@ public class Client {
 	public Date date_created;
 	public Date date_updated;
 	public int user_id;
-	
 }

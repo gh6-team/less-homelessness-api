@@ -5,4 +5,5 @@ public class User {
 	public String name;
 	public String roleName;
 	public String organizationName;
+	public String phone;
 }

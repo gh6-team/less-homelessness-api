@@ -32,8 +32,8 @@ CREATE TABLE clients (
     other_theater INTEGER NULL,
     military_branch INTEGER NULL,
     discharge_status INTEGER NULL,
-    date_created date NULL,
-    date_updated date NULL,
+    date_created DATETIME NULL,
+    date_updated DATETIME NOT NULL,
     user_id INTEGER NULL,
     primary key (client_id, date_updated)
 );
@@ -85,6 +85,7 @@ CREATE TABLE employment_education (
 );
 
 CREATE TABLE enrollment (
+	enrollment_id INTEGER NOT NULL,
     project_entry_id INTEGER NOT NULL,
     personal_id INTEGER NOT NULL,
     project_id INTEGER NOT NULL,
@@ -122,6 +123,7 @@ CREATE TABLE enrollment (
 	child_welfare_months INTEGER NULL,
 	former_ward_juvenile_justice INTEGER NULL,
 	juvenile_justice_years INTEGER NULL,
+	juvenile_justice_months INTEGER NULL,
 	household_dynamics INTEGER NULL,
 	sexual_orientation_gender_id_youth INTEGER NULL,
 	sexual_orientation_gender_id_fam INTEGER NULL,
@@ -165,7 +167,7 @@ CREATE TABLE enrollment (
 	user_id INTEGER NULL,
 	date_deleted date NULL,
 	export_id INTEGER NULL,
-	primary key (project_entry_id, date_updated)
+	primary key (enrollment_id)
 );
 
 CREATE TABLE exit (
@@ -334,10 +336,11 @@ CREATE TABLE services (
     primary key (services_id, date_updated)
 );
 
-CREATE TABLE shelter (
-    id integer DEFAULT 0 NOT NULL,
+CREATE TABLE shelters (
+	id INTEGER IDENTITY PRIMARY KEY,
     name varchar(50) NOT NULL,
     address varchar(50) NOT NULL,
+    city varchar(50) NOT NULL,
     state varchar(50) NOT NULL,
     zip_code varchar(50) NOT NULL,
     phone_number varchar(50) NOT NULL,
@@ -349,17 +352,17 @@ CREATE TABLE shelter (
 );
 
 CREATE TABLE shelter_beds (
-    id integer DEFAULT 0 NOT NULL,
+	id INTEGER IDENTITY PRIMARY KEY,
     shelter_id integer NOT NULL,
     bed_name varchar(50) NOT NULL
 );
 
 CREATE TABLE shelter_bed_assignments (
-    id integer DEFAULT 0 NOT NULL,
+	id INTEGER IDENTITY PRIMARY KEY,
     shelter_bed_id integer NOT NULL,
     assigned_to_client_id integer NOT NULL,
     assignment_date date NOT NULL,
-    assigned_by integer NOT NULL
+    assigned_by_id integer NOT NULL
 );
 
 CREATE TABLE users (
@@ -367,7 +370,7 @@ CREATE TABLE users (
 	name varchar(50) NOT NULL,
 	role_name varchar(50) NOT NULL,
 	organization_name varchar(50) NULL,
-	
+	phone varchar(15) NULL,
 	PRIMARY KEY (id)
 );
 
