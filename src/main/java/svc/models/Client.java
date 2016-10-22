@@ -1,6 +1,7 @@
 package svc.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class Client {
 	public int id;
@@ -35,4 +36,7 @@ public class Client {
 	public Date date_created;
 	public Date date_updated;
 	public int user_id;
+	
+	public List<ClientDisabilities> disabilities;
+	public EmploymentEducation employment_education_details;
 }

@@ -2,7 +2,7 @@ DROP SCHEMA PUBLIC CASCADE
 /*http://hsqldb.org/doc/guide/compatibility-chapt.html#coc_compatibility_mysql*/
 
 CREATE TABLE clients (
-    client_id INTEGER DEFAULT 0 NOT NULL,
+    client_id INTEGER IDENTITY PRIMARY KEY,
     first_name varchar(50) NULL,
     middle_name varchar(50) NULL,
     last_name varchar(50) NULL,
@@ -34,12 +34,12 @@ CREATE TABLE clients (
     discharge_status INTEGER NULL,
     date_created DATETIME NULL,
     date_updated DATETIME NOT NULL,
-    user_id INTEGER NULL,
-    primary key (client_id, date_updated)
+    user_id INTEGER NULL
 );
 
 CREATE TABLE disabilities (
-    disabilities_id varchar(50) NOT NULL,
+	table_id INTEGER IDENTITY PRIMARY KEY,
+    disabilities_id varchar(50) DEFAULT '' NOT NULL,
     project_entry_id INTEGER NULL,
     personal_id INTEGER NULL,
 	information_date date NULL,
@@ -61,12 +61,11 @@ CREATE TABLE disabilities (
 	date_updated date NULL,
 	user_id INTEGER NULL,
 	date_deleted date NULL,
-	export_id INTEGER NULL,
-	primary key (disabilities_id, date_updated)
+	export_id INTEGER NULL
 );
 
 CREATE TABLE employment_education (
-    employment_education_id INTEGER NOT NULL,
+    employment_education_id INTEGER IDENTITY PRIMARY KEY,
     project_entry_id INTEGER NOT NULL,
     personal_id INTEGER NOT NULL,
 	information_date date NOT NULL,
@@ -80,12 +79,11 @@ CREATE TABLE employment_education (
 	date_updated date NULL,
 	user_id INTEGER NULL,
 	date_deleted date NULL,
-	export_id INTEGER NULL,
-	primary key (employment_education_id, date_updated)
+	export_id INTEGER NULL
 );
 
 CREATE TABLE enrollment (
-	enrollment_id INTEGER NOT NULL,
+	enrollment_id INTEGER IDENTITY PRIMARY KEY,
     project_entry_id INTEGER NOT NULL,
     personal_id INTEGER NOT NULL,
     project_id INTEGER NOT NULL,
@@ -166,8 +164,7 @@ CREATE TABLE enrollment (
 	date_updated date NULL,
 	user_id INTEGER NULL,
 	date_deleted date NULL,
-	export_id INTEGER NULL,
-	primary key (enrollment_id)
+	export_id INTEGER NULL
 );
 
 CREATE TABLE exit (
