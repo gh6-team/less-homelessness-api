@@ -15,7 +15,14 @@ public class ClientManager {
 	
 	public Client createOrUpdateClient(Client client)
 	{
-		throw new RuntimeException();
-		//return client;
+		if(client.id == 0)
+		{
+			client = clientDAO.createClient(client);
+		}
+		else
+		{
+			clientDAO.updateClient(client);
+		}
+		return client;
 	}
 }
