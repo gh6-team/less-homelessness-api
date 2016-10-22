@@ -98,6 +98,19 @@ public class ShelterDAO extends BaseJdbcDao {
         }
     }
 
+    public long getAvailableBedCount(int shelter_id) {
+        long count = 0;
+
+        List<ShelterBedAssignment> beds = getBedAssignmentsForShelter(shelter_id);
+        for (ShelterBedAssignment bed : beds) {
+            if (bed.assigned_to_client_id == 0) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
+
     private class ShelterSQLMapper implements RowMapper<Shelter> {
         public Shelter mapRow(ResultSet rs, int i) {
             Shelter shelter = new Shelter();
