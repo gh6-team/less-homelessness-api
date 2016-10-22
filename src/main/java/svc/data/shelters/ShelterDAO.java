@@ -101,7 +101,7 @@ public class ShelterDAO extends BaseJdbcDao {
                 shelterBedAssignment.id = rs.getInt("shelter_bed_assignments.id");
                 shelterBedAssignment.shelter_id = rs.getInt("shelter_beds.shelter_id");
                 shelterBedAssignment.bed_name = rs.getString("shelter_beds.bed_name");
-                shelterBedAssignment.shelter_bed_id = rs.getInt("shelter_bed_assignments.shelter_bed_id");
+                shelterBedAssignment.shelter_bed_id = rs.getInt("shelter_beds.id");
                 shelterBedAssignment.assigned_to_client_id = rs.getInt("shelter_bed_assignments.assigned_to_client_id");
                 shelterBedAssignment.assignment_date = rs.getDate("shelter_bed_assignments.assignment_date");
                 shelterBedAssignment.assigned_by_id = rs.getInt("shelter_bed_assignments.assigned_by_id");
