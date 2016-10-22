@@ -6,6 +6,7 @@ import svc.data.jdbc.BaseJdbcDao;
 import svc.location.LatLng;
 import svc.logging.LogSystem;
 import svc.models.Shelter;
+import svc.models.ShelterBedAssignment;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -51,6 +52,20 @@ public class ShelterDAO extends BaseJdbcDao {
         }
     }
 
+    public List<ShelterBedAssignment> getBedAssignmentsForShelter(int shelter_id) {
+        try {
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            parameterMap.put("shelter_id", shelter_id);
+            String sql = "SELECT * FROM shelter_beds LEFT JOIN shelter_bed_assignments " +
+                    "ON shelter_beds.id = shelter_bed_assignments.shelter_bed_id " +
+                    "WHERE shelter_beds.shelter_id = :shelter_id";
+            return jdbcTemplate.query(sql, parameterMap, new ShelterBedAssignmentSQLMapper());
+        } catch (Exception e) {
+            LogSystem.LogDBException(e);
+            return null;
+        }
+    }
+
     private class ShelterSQLMapper implements RowMapper<Shelter> {
         public Shelter mapRow(ResultSet rs, int i) {
             Shelter shelter = new Shelter();
@@ -65,13 +80,32 @@ public class ShelterDAO extends BaseJdbcDao {
                 shelter.allows_men = rs.getInt("allows_men");
                 shelter.allows_women = rs.getInt("allows_women");
                 shelter.allows_children = rs.getInt("allows_children");
-
             } catch (Exception e) {
                 LogSystem.LogDBException(e);
                 return null;
             }
 
             return shelter;
+        }
+    }
+
+    private class ShelterBedAssignmentSQLMapper implements RowMapper<ShelterBedAssignment> {
+        public ShelterBedAssignment mapRow(ResultSet rs, int i) {
+            ShelterBedAssignment shelterBedAssignment = new ShelterBedAssignment();
+            try {
+                shelterBedAssignment.id = rs.getInt("shelter_bed_assignments.id");
+                shelterBedAssignment.shelter_id = rs.getInt("shelter_beds.shelter_id");
+                shelterBedAssignment.bed_name = rs.getString("shelter_beds.bed_name");
+                shelterBedAssignment.shelter_bed_id = rs.getInt("shelter_bed_assignments.shelter_bed_id");
+                shelterBedAssignment.assigned_to_client_id = rs.getInt("shelter_bed_assignments.assigned_to_client_id");
+                shelterBedAssignment.assignment_date = rs.getDate("shelter_bed_assignments.assignment_date");
+                shelterBedAssignment.assigned_by_id = rs.getInt("shelter_bed_assignments.assigned_by_id");
+            } catch (Exception e) {
+                LogSystem.LogDBException(e);
+                return null;
+            }
+
+            return shelterBedAssignment;
         }
     }
 

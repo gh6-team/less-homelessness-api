@@ -2,6 +2,7 @@ package svc.controllers;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
+import svc.dto.ShelterBedAssignmentsDTO;
 import svc.dto.SheltersDTO;
 import svc.location.LatLng;
 import svc.logging.LogSystem;
@@ -42,6 +43,12 @@ public class ShelterController {
 		}
 		
 		return null;
-	}
+    }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/bed_assignments")
+    ShelterBedAssignmentsDTO FindShelterBedAssignments(@PathVariable("id") Long id) {
+        return new ShelterBedAssignmentsDTO(shelterManager.GetBedAssignmentsForShelter(id.intValue()));
+    }
 
 }
