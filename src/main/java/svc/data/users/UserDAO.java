@@ -50,6 +50,7 @@ public class UserDAO extends BaseJdbcDao {
 				user.roleName = rs.getString("role_name");
 				user.organizationName = rs.getString("organization_name");
 				user.phone = rs.getString("phone");
+				user.client_id = rs.getInt("client_id");
 			} catch (Exception e) {
 				LogSystem.LogDBException(e);
 				return null;

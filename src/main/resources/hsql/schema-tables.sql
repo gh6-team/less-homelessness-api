@@ -371,6 +371,7 @@ CREATE TABLE users (
 	role_name varchar(50) NOT NULL,
 	organization_name varchar(50) NULL,
 	phone varchar(15) NULL,
+	client_id integer NULL,
 	PRIMARY KEY (id)
 );
 

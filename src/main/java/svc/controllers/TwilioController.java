@@ -21,6 +21,7 @@ import com.twilio.twiml.Message;
 import com.twilio.twiml.MessagingResponse;
 import com.twilio.twiml.TwiMLException;
 
+import svc.location.LatLng;
 import svc.logging.LogSystem;
 import svc.managers.TwilioManager;
 

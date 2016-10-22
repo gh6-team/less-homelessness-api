@@ -6,4 +6,5 @@ public class User {
 	public String roleName;
 	public String organizationName;
 	public String phone;
+	public int client_id;
 }
