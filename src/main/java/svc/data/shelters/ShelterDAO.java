@@ -40,6 +40,17 @@ public class ShelterDAO extends BaseJdbcDao {
         }
     }
 
+    public List<Shelter> getAllShelters() {
+        try {
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            String sql = "SELECT * FROM shelters";
+            return jdbcTemplate.query(sql, parameterMap, new ShelterSQLMapper());
+        } catch (Exception e) {
+            LogSystem.LogDBException(e);
+            return null;
+        }
+    }
+
     private class ShelterSQLMapper implements RowMapper<Shelter> {
         public Shelter mapRow(ResultSet rs, int i) {
             Shelter shelter = new Shelter();

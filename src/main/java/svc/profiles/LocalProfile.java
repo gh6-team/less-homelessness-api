@@ -16,13 +16,6 @@ public class LocalProfile {
 		EmbeddedDatabaseBuilder dbBuilder = new EmbeddedDatabaseBuilder();
 		return dbBuilder.setType(EmbeddedDatabaseType.HSQL)
 				.addScript("hsql/schema-tables.sql")
-				.addScript("hsql/courts.sql")
-				.addScript("hsql/opportunities.sql")
-				.addScript("hsql/opportunity-needs.sql")
-				.addScript("hsql/sponsor-login.sql")
-				.addScript("hsql/sponsors.sql")
-				.addScript("hsql/violations.sql")
-				.addScript("hsql/citations.sql")
 				.build();
 	}
 }

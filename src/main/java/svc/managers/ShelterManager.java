@@ -21,4 +21,5 @@ public class ShelterManager {
         return shelterDAO.getByLocation(location);
     }
 
+    public List<Shelter> GetAllShelters() { return shelterDAO.getAllShelters(); }
 }
