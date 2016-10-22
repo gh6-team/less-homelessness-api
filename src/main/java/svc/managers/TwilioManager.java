@@ -39,13 +39,14 @@ public class TwilioManager {
 		
 		if("bed".equalsIgnoreCase(message))
 		{
-			Client client =  clientDAO.getClientById(user.client_id);
+			Client client = user == null ? null : clientDAO.getClientById(user.client_id);
 			Shelter shelter = findShelter(client);
 			
 			if(shelter == null)
 			{
 				return "We're unable to locate an open bed, but Larry Rice never turns someone away.";
 			}
+			
 			if(user == null)
 			{
 				return "Limited beds available at " + shelter.name + ".";
@@ -82,12 +83,7 @@ public class TwilioManager {
 	}
 	
 	private Shelter findShelter(Client client)
-	{
-		if(client == null)
-		{
-			return null;
-		}
-		
+	{	
 		for(Shelter shelter: shelterDAO.getAllShelters())
 		{
 			long bedCount = shelterDAO.getAvailableBedCount(shelter.id);
@@ -96,18 +92,21 @@ public class TwilioManager {
 				continue;
 			}
 			
-			if(client.gender == Gender.FEMALE)
+			if(client != null)
 			{
-				if(shelter.allows_women == 1)
+				if(client.gender == Gender.FEMALE)
 				{
-					return shelter;
+					if(shelter.allows_women == 1)
+					{
+						return shelter;
+					}
 				}
-			}
-			if(client.gender == Gender.MALE)
-			{
-				if(shelter.allows_men == 1)
+				if(client.gender == Gender.MALE)
 				{
-					return shelter;
+					if(shelter.allows_men == 1)
+					{
+						return shelter;
+					}
 				}
 			}
 			

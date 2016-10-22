@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import javax.security.sasl.AuthenticationException;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,13 +26,13 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value="/login")
-	public User Login(@RequestBody Credentials credentials) throws AuthenticationException {
+	public ResponseEntity Login(@RequestBody Credentials credentials) throws AuthenticationException {
 		User user = userManager.Login(credentials.userId, credentials.password);
 		if (user == null) {
-			throw new AuthenticationException();
+			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		}
 		
-		return user;
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
 }
