@@ -18,6 +18,7 @@ import svc.logging.LogSystem;
 import svc.models.Client;
 import svc.models.Gender;
 import svc.models.VeteranStatus;
+import svc.models.ClientDisabilities;
 
 @Repository
 public class ClientDAO extends BaseJdbcDao {
@@ -75,6 +76,38 @@ public class ClientDAO extends BaseJdbcDao {
 			}
 			
 			return client;
+		}
+	}
+	
+	private class ClientDiabilitiesSQLMapper implements RowMapper<ClientDisabilities> {
+		public ClientDisabilities mapRow(ResultSet rs, int i) {
+			ClientDisabilities clientDisabilities = new ClientDisabilities();
+			try {	
+				clientDisabilities.id = rs.getString("disabilities_id");
+				clientDisabilities.project_entry_id = rs.getInt("project_entry_id");
+				clientDisabilities.personal_id = rs.getInt("personal_id");
+				clientDisabilities.information_date = rs.getDate("information_date");
+				clientDisabilities.disability_type = rs.getInt("disability_type");
+				clientDisabilities.disability_response = rs.getInt("disabilitiy_response");
+				clientDisabilities.indefinite_and_impairs = rs.getInt("indefinite_and_impairs");
+				clientDisabilities.documentation_on_file = rs.getInt("documentation_on_file");
+				clientDisabilities.receiving_services = rs.getInt("receiving_services");
+				clientDisabilities.path_how_confirmed = rs.getInt("path_how_confirmed");
+				clientDisabilities.path_smi_information = rs.getInt("path_smi_information");
+				clientDisabilities.is_tcell_count_available = rs.getBoolean("tcell_count_available");
+				clientDisabilities.tcell_count = rs.getInt("tcell_count");
+				clientDisabilities.tcell_source = rs.getInt("tcell_source");
+				clientDisabilities.is_viral_load_available = rs.getBoolean("viral_load_availalbe");
+				clientDisabilities.date_created = rs.getDate("date_created");
+				clientDisabilities.date_updated = rs.getDate("date_updated");
+				clientDisabilities.user_id = rs.getInt("user_id");
+				
+			} catch (Exception e) {
+				LogSystem.LogDBException(e);
+				return null;
+			}
+			
+			return clientDisabilities;
 		}
 	}
 	
