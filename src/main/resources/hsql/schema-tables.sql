@@ -33,7 +33,7 @@ CREATE TABLE clients (
     military_branch INTEGER NULL,
     discharge_status INTEGER NULL,
     date_created date NULL,
-    date_updated date NULL,
+    date_updated date NOT NULL,
     user_id INTEGER NULL,
     primary key (client_id, date_updated)
 );
