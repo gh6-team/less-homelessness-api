@@ -339,3 +339,34 @@ CREATE TABLE services (
     export_id integer NULL
     primary key (services_id)
 );
+
+DROP TABLE IF EXISTS shelter;
+CREATE TABLE shelter (
+    id integer DEFAULT 0 NOT NULL,
+    name text NOT NULL,
+    address text NOT NULL,
+    state text NOT NULL,
+    zip_code text NOT NULL,
+    phone_number text NOT NULL,
+    location text NULL,
+    allows_men integer NOT NULL,
+    allows_women integer NOT NULL,
+    allows_children integer NOT NULL
+);
+
+DROP TABLE IF EXISTS shelter_beds;
+CREATE TABLE shelter_beds (
+    id integer DEFAULT 0 NOT NULL,
+    shelter_id integer NOT NULL,
+    bed_name text NOT NULL
+);
+
+DROP TABLE IF EXISTS shelter_bed_assignments;
+CREATE TABLE shelter_bed_assignments (
+    id integer DEFAULT 0 NOT NULL,
+    shelter_bed_id integer NOT NULL,
+    assigned_to_client_id integer NOT NULL,
+    assignment_date date NOT NULL,
+    assigned_by integer NOT NULL
+);
+
