@@ -4,12 +4,13 @@ DROP SCHEMA PUBLIC CASCADE
 CREATE TABLE clients (
     client_id INTEGER DEFAULT 0 NOT NULL,
     first_name varchar(50) NULL,
-    middle_name date NULL,
+    middle_name varchar(50) NULL,
     last_name varchar(50) NULL,
     name_data_quality varchar(50) NULL,
     ssn INTEGER NULL,
     ssn_data_quality INTEGER NULL,
     dob date NULL,
+    dob_data_quality INTEGER NULL,
     am_ind_ak_native INTEGER NULL,
     asian INTEGER NULL,
     black INTEGER NULL,
@@ -34,7 +35,7 @@ CREATE TABLE clients (
     date_created date NULL,
     date_updated date NULL,
     user_id INTEGER NULL,
-    primary key (client_id, date_updated)
+    primary key (client_id)
 );
 
 CREATE TABLE disabilities (
