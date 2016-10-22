@@ -1,91 +1,201 @@
-DROP TABLE IF EXISTS citations;
-CREATE TABLE citations (
-    id integer DEFAULT 0 NOT NULL,
-    citation_number text NULL,
-    citation_date date NULL,
+DROP TABLE IF EXISTS clients;
+CREATE TABLE clients (
+    uuid int DEFAULT 0 NOT NULL,
     first_name text NULL,
+    middle_name date NULL,
     last_name text NULL,
-    date_of_birth date NULL,
-    defendant_address text NULL,
-    defendant_city text NULL,
-    defendant_state text NULL,
-    drivers_license_number text,
-    court_date date NULL,
-    court_location text NULL,
-    court_address text NULL,
-    court_id integer NULL
+    name_data_quality text NULL,
+    ssn int NULL,
+    ssn_data_quality int NULL,
+    dob date NULL,
+    AmIndAKNative int NULL,
+    Asian int NULL,
+    Black int NULL,
+    NativeHIOtherPacific int NULL,
+    White int NULL,
+    RaceNone int NULL,
+    Gender int NULL,
+    OtherGender int NULL,
+    veteran_status int NULL,
+    year_entered_service int NULL,
+    year_separated int NULL,
+    WorldWarII int NULL,
+    KoreanWar int NULL,
+    VietnamWar int NULL,
+    DesertStorm int NULL,
+    AfghanistanOEF int NULL,
+    IraqOIF int NULL,
+    IraqOND int NULL,
+    OtherTheater int NULL,
+    MilitaryBranch int NULL,
+    Discharge_Status int NULL,
+    date_created date NULL,
+    date_updated date NULL,
+    user_id int NULL
 );
 
-DROP TABLE IF EXISTS courts;
-CREATE TABLE courts (
-    id integer NOT NULL,
-    latitude double precision,
-    longitude double precision,
-    municipality text,
-    address text,
-    city text,
-    state text,
-    zip_code text
+DROP TABLE IF EXISTS disabilities;
+CREATE TABLE disabilities (
+    disabilities_id int NOT NULL,
+    project_entry_id int NULL,
+    personal_id int NULL,
+	information_date date NULL,
+	disabilitiy_type int NULL,
+	disability_response int NULL,
+	indefinite_and_impairs int NULL,
+	documentation_on_file int NULL,
+	receiving_services int NULL,
+	PATH_how_confirmed int NULL,
+	PATH_SMI_information int NULL,
+	tcell_count_available int NULL,
+	tcell_count int NULL,
+	tcell_source int NULL,
+	viral_load_available int NULL,
+	viral_load int NULL,
+	viral_load_source int NULL,
+	data_collection_stage int NULL,
+	date_created date NULL,
+	date_updated date NULL,
+	user_id int NULL,
+	date_deleted date NULL,
+	export_id int NULL
 );
 
-DROP TABLE IF EXISTS opportunities;
-CREATE TABLE opportunities (
-    id integer NOT NULL,
-    sponsor_id integer NOT NULL,
-    name text NOT NULL,
-    short_description text NOT NULL,
-    full_description text,
-    court_id integer NOT NULL
+DROP TABLE IF EXISTS employment_education;
+CREATE TABLE employment_education (
+    employment_education_id int NOT NULL,
+    project_entry_id int NOT NULL,
+    personal_id int NOT NULL,
+	information_date date NOT NULL,
+	last_grade_completed int NULL,
+	school_status int NULL,
+	employed int NULL,
+	employment_type int NULL,
+	not_employed_reason int NULL,
+	data_collection_stage int NULL,
+	date_created date NULL,
+	date_updated date NULL,
+	user_id int NULL,
+	date_deleted date NULL,
+	export_id int NULL
 );
 
-DROP TABLE IF EXISTS opportunity_need_pairings;
-CREATE TABLE opportunity_need_pairings (
-    opportunity_need_id integer,
-    violation_id integer,
-    status text,
-    id integer
+DROP TABLE IF EXISTS enrollment;
+CREATE TABLE enrollment (
+    project_entry_id int NOT NULL,
+    personal_id int NOT NULL,
+    project_id int NOT NULL,
+	entry_date date NULL,
+	household_id int NULL,
+	relationship_to_hoh int NULL,
+	residence_prior int NULL,
+	other_residence_prior int NULL,
+	residence_prior_length_of_stay int NULL,
+	disabling_condition int NULL,
+	entry_from_street_essh int NULL,
+	date_to_street_essh date NULL,
+	times_homless_past_three_years int NULL,
+	months_homeless_past_three_years int NULL,
+	housing_status int NULL,
+	date_of_engagement date NULL,
+	in_permanent_housing int NULL,
+	residential_move_in_date date NULL,
+	date_of_PATH_status date NULL,
+	client_enrolled_in_PATH int NULL,
+	reason_not_enrolled int NULL,
+	worst_housing_situation int NULL,
+	percent_AMI int NULL,
+	last_permanent_street text NULL,
+	last_permanent_city text NULL,
+	last_permanent_state text NULL,
+	last_permanent_zip text NULL,
+	address_data_quality int NULL,
+	date_of_bcp_status int NULL,
+	fysb_youth int NULL,
+	reason_no_servies int NULL,
+	sexual_orientation int NULL,
+	former_ward_child_welfare int NULL,
+	child_welfare_years int NULL,
+	child_welfare_months int NULL,
+	former_ward_juvenile_justice int NULL,
+	juvenile_justice_years int NULL,
+	household_dynamics int NULL,
+	sexual_orientation_gender_id_youth int NULL,
+	sexual_orientation_gender_id_fam int NULL,
+	housing_issues_youth int NULL,
+	housing_issues_fam int NULL,
+	school_educational_issues_youth int NULL,
+	school_education_issues_fam int NULL,
+	unemployment_youth int NULL,
+	unemployment_fam int NULL,
+	mental_health_issues_youth int NULL,
+	mental_health_issues_fam int NULL,
+	health_issues_youth int NULL,
+	health_issues_fam int NULL,
+	physical_disability_youth int NULL,
+	physical_disability_fam int NULL,
+	mental_disability_youth int NULL,
+	mental_disability_fam int NULL,
+	abuse_and_neglect_youth int NULL,
+	abuse_and_neglect_fam int NULL,
+	alcohol_drug_abuse_youth int NULL,
+	alcohol_drug_abuse_fam int NULL,
+	insufficient_income int NULL,
+	active_military_parent int NULL,
+	incarcerated_parent int NULL,
+	incarcerated_parent_status int NULL,
+	referral_source int NULL,
+	court_ourtreach_referral_approaches int NULL,
+	exchange_for_sex int NULL,
+	exchange_for_sex_past_three_months int NULL,
+	count_of_exchanges_for_sex int NULL,
+	asked_or_forced_to_exchange_for_sex int NULL,
+	asked_or_forced_to_exchange_for_sex_past_three_months int NULL,
+	workplace_violence_threats int NULL,
+	workplace_promise_difference int NULL,
+	coerced_to_continue_work int NULL,
+	labor_exploit_past_three_months int NULL,
+	hp_screening_score int NULL,
+	vamc_station int NULL,
+	date_created date NULL,
+	date_updated date NULL,
+	user_id int NULL,
+	date_deleted date NULL,
+	export_id int NULL
 );
 
-DROP TABLE IF EXISTS opportunity_needs;
-CREATE TABLE opportunity_needs (
-    id integer NOT NULL,
-    opportunity_id integer,
-    start_time DATETIME,
-    end_time DATETIME,
-    violation_fine_limit numeric,
-    desired_count integer,
-    description text
+DROP TABLE IF EXISTS exit;
+CREATE TABLE exit (
+    exit_id int NOT NULL,
+    project_entry_id int NOT NULL,
+    personal_id int NOT NULL,
+	exit_date date NOT NULL,
+	destination int NULL,
+	other_destination int NULL,
+	assessment_disposition int NULL,
+	other_disposition int NULL,
+	housing_assignment int NULL,
+	subsity_information int NULL,
+	connection_with_soar int NULL,
+	written_aftercare_plan int NULL,
+	assistance_mainstream_benefits int NULL,
+	permanent_housing_placement int NULL,
+	temporary_shelter_placement int NULL,
+	exit_counseling int NULL,
+	further_follow_up_services int NULL,
+	scheduled_follow_up_contacts int NULL,
+	resource_package int NULL,
+	other_aftercare_plan_or_action int NULL,
+	project_completion_status int NULL,
+	early_exit_reason int NULL,
+	family_reunification_achieved int NULL,
+	date_created date NULL,
+	date_updated date NULL,
+	user_id int NULL,
+	date_deleted date NULL,
+	export_id int NULL
 );
 
-DROP TABLE IF EXISTS sponsor_login;
-CREATE TABLE sponsor_login (
-    id integer NOT NULL,
-    userid text,
-    pwd text
-);
-
-DROP TABLE IF EXISTS sponsors;
-CREATE TABLE sponsors (
-    id integer NOT NULL,
-    name text,
-    short_description text,
-    contact_email text,
-    contact_phonenumber text
-);
-
-DROP TABLE IF EXISTS violations;
-CREATE TABLE violations (
-    id integer DEFAULT 0 NOT NULL,
-    citation_number text,
-    violation_number text,
-    violation_description text,
-    warrant_status TINYINT(1) DEFAULT 0,
-    warrant_number text,
-    status text,
-    status_date TIMESTAMP,
-    fine_amount numeric(15,2),
-    court_cost numeric(15,2)
-);
 
 DROP TABLE IF EXISTS funder;
 CREATE TABLE funder (
