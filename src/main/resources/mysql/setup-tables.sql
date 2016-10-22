@@ -94,21 +94,21 @@ CREATE TABLE enrollment (
 	disabling_condition int NULL,
 	entry_from_street_essh int NULL,
 	date_to_street_essh date NULL,
-	times_homless_past_three_years int NULL,
+	times_homeless_past_three_years int NULL,
 	months_homeless_past_three_years int NULL,
 	housing_status int NULL,
 	date_of_engagement date NULL,
 	in_permanent_housing int NULL,
 	residential_move_in_date date NULL,
-	date_of_PATH_status date NULL,
-	client_enrolled_in_PATH int NULL,
-	reason_not_enrolled int NULL,
+	date_of_path_status date NULL,
+	client_enrolled_in_path int NULL,
+	reason_not_enrolled text NULL,
 	worst_housing_situation int NULL,
 	percent_AMI int NULL,
 	last_permanent_street text NULL,
 	last_permanent_city text NULL,
 	last_permanent_state text NULL,
-	last_permanent_zip text NULL,
+	last_permanent_zip int NULL,
 	address_data_quality int NULL,
 	date_of_bcp_status int NULL,
 	fysb_youth int NULL,
@@ -330,3 +330,34 @@ CREATE TABLE services (
     date_deleted TIMESTAMP NULL,
     export_id integer NULL
 );
+
+DROP TABLE IF EXISTS shelter;
+CREATE TABLE shelter (
+    id integer DEFAULT 0 NOT NULL,
+    name text NOT NULL,
+    address text NOT NULL,
+    state text NOT NULL,
+    zip_code text NOT NULL,
+    phone_number text NOT NULL,
+    location text NULL,
+    allows_men integer NOT NULL,
+    allows_women integer NOT NULL,
+    allows_children integer NOT NULL
+);
+
+DROP TABLE IF EXISTS shelter_beds;
+CREATE TABLE shelter_beds (
+    id integer DEFAULT 0 NOT NULL,
+    shelter_id integer NOT NULL,
+    bed_name text NOT NULL
+);
+
+DROP TABLE IF EXISTS shelter_bed_assignments;
+CREATE TABLE shelter_bed_assignments (
+    id integer DEFAULT 0 NOT NULL,
+    shelter_bed_id integer NOT NULL,
+    assigned_to_client_id integer NULL,
+    assignment_date date NOT NULL,
+    assigned_by integer NOT NULL
+);
+

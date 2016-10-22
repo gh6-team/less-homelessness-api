@@ -19,6 +19,8 @@ import svc.models.Client;
 import svc.models.Gender;
 import svc.models.VeteranStatus;
 import svc.models.ClientDisabilities;
+import svc.models.EmploymentEducation;
+import svc.models.Enrollment;
 
 @Repository
 public class ClientDAO extends BaseJdbcDao {
@@ -98,9 +100,14 @@ public class ClientDAO extends BaseJdbcDao {
 				clientDisabilities.tcell_count = rs.getInt("tcell_count");
 				clientDisabilities.tcell_source = rs.getInt("tcell_source");
 				clientDisabilities.is_viral_load_available = rs.getBoolean("viral_load_availalbe");
+				clientDisabilities.viral_load = rs.getInt("viral_load");
+				clientDisabilities.viral_load_source = rs.getInt("viral_load_source");
+				clientDisabilities.data_collection_stage = rs.getInt("data_collection_stage");
 				clientDisabilities.date_created = rs.getDate("date_created");
 				clientDisabilities.date_updated = rs.getDate("date_updated");
 				clientDisabilities.user_id = rs.getInt("user_id");
+				clientDisabilities.date_deleted = rs.getDate("date_deleted");
+				clientDisabilities.export_id = rs.getInt("export_id");
 				
 			} catch (Exception e) {
 				LogSystem.LogDBException(e);
@@ -108,6 +115,85 @@ public class ClientDAO extends BaseJdbcDao {
 			}
 			
 			return clientDisabilities;
+		}
+	}
+	
+	private class EmploymentEducationSQLMapper implements RowMapper<EmploymentEducation> {
+		public EmploymentEducation mapRow(ResultSet rs, int i) {
+			EmploymentEducation employmentEducation = new EmploymentEducation();
+			try {	
+				employmentEducation.id = rs.getInt("employement_education_id");
+				employmentEducation.project_entry_id = rs.getInt("project_entry_id");
+				employmentEducation.personal_id = rs.getInt("personal_id");
+				employmentEducation.information_date = rs.getDate("information_date");
+				employmentEducation.last_grade_completed = rs.getInt("last_grade_completed");
+				employmentEducation.school_status = rs.getInt("school_status");
+				employmentEducation.employed_status = rs.getInt("employed");
+				employmentEducation.employment_type = rs.getInt("employment_type");
+				employmentEducation.not_employed_reason = rs.getInt("not_employed_reason");
+				employmentEducation.data_collection_stage = rs.getInt("data_collection_stage");
+				employmentEducation.date_created = rs.getDate("date_created");
+				employmentEducation.date_updated = rs.getDate("date_updated");
+				employmentEducation.user_id = rs.getInt("user_id");
+				employmentEducation.date_deleted = rs.getDate("date_deleted");
+				employmentEducation.export_id = rs.getInt("export_id");
+				
+			} catch (Exception e) {
+				LogSystem.LogDBException(e);
+				return null;
+			}
+			
+			return employmentEducation;
+		}
+	}
+	
+	private class EnrollmentSQLMapper implements RowMapper<Enrollment> {
+		public Enrollment mapRow(ResultSet rs, int i) {
+			Enrollment enrollment = new Enrollment();
+			try {	
+				enrollment.id = rs.getInt("project_entry_id");
+				enrollment.personal_id = rs.getInt("personal_id");
+				enrollment.project_id = rs.getInt("project_id");
+				enrollment.entry_date = rs.getDate("entry_date");
+				enrollment.household_id = rs.getInt("household_id");
+				enrollment.relationship_to_hoh = rs.getInt("relationship_to_hoh");
+				enrollment.prior_residence = rs.getInt("residence_prior");
+				enrollment.other_residence_prior = rs.getString("other_residence_prior");
+				enrollment.prior_residence_length_of_stay = rs.getInt("residence_prior_length_of_stay");
+				enrollment.has_disabling_condition = rs.getBoolean("disabling_condition");
+				enrollment.entry_from_street_essh = rs.getInt("entry_from_street_essh");
+				enrollment.date_to_street_essh = rs.getDate("date_to_street_essh");
+				enrollment.times_homeless_last_three_years = rs.getInt("times_homeless_past_three_years");
+				enrollment.months_homeless_last_three_years = rs.getInt("months_homeless_last_three_years");
+				enrollment.housing_status = rs.getInt("housing_status");
+				enrollment.date_of_engagement = rs.getDate("date_of_engagement");
+				enrollment.in_permanent_housing = rs.getBoolean("in_permanent_housing");
+				enrollment.residential_move_in_date = rs.getDate("residential_move_in_date");
+				enrollment.date_of_path_status = rs.getDate("date_of_path_status");
+				enrollment.client_enrolled_in_path = rs.getInt("client_enrolled_in_path");
+				enrollment.reason_not_enrolled = rs.getString("reason_not_enrolled");
+				enrollment.worst_housing_situation = rs.getInt("worst_housing_situation");
+				enrollment.percent_ami = rs.getInt("percent_ami");
+				enrollment.last_permanent_street = rs.getString("last_permanent_street");
+				enrollment.last_permanent_city = rs.getString("last_permanent_city");
+				enrollment.last_permanent_state = rs.getString("last_permanent_state");
+				enrollment.last_permanent_zip = rs.getInt("last_permanent_zip");
+				enrollment.address_data_quality = rs.getInt("address_data_quality");
+				enrollment.date_of_bcp_status = rs.getDate("date_of_bcp_status");
+				enrollment.hp_screening_score = rs.getInt("hp_screening_score");
+				enrollment.vamc_station = rs.getInt("vacm_station");
+				enrollment.date_created = rs.getDate("date_created");
+				enrollment.date_updated = rs.getDate("date_updated");
+				enrollment.user_id = rs.getInt("user_id");
+				enrollment.date_deleted = rs.getDate("date_deleted");
+				enrollment.export_id = rs.getInt("export_id");
+				
+			} catch (Exception e) {
+				LogSystem.LogDBException(e);
+				return null;
+			}
+			
+			return enrollment;
 		}
 	}
 	
