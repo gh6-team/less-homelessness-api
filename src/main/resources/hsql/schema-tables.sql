@@ -6,7 +6,7 @@ CREATE TABLE clients (
     first_name varchar(50) NULL,
     middle_name varchar(50) NULL,
     last_name varchar(50) NULL,
-    name_data_quality varchar(50) NULL,
+    name_data_quality INTEGER NULL,
     ssn INTEGER NULL,
     ssn_data_quality INTEGER NULL,
     dob date NULL,
