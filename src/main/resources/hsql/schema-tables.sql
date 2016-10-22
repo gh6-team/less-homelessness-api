@@ -4,7 +4,7 @@ DROP SCHEMA PUBLIC CASCADE
 CREATE TABLE clients (
     client_id INTEGER DEFAULT 0 NOT NULL,
     first_name varchar(50) NULL,
-    middle_name date NULL,
+    middle_name varchar(50) NULL,
     last_name varchar(50) NULL,
     name_data_quality varchar(50) NULL,
     ssn INTEGER NULL,
@@ -62,7 +62,7 @@ CREATE TABLE disabilities (
 	user_id INTEGER NULL,
 	date_deleted date NULL,
 	export_id INTEGER NULL,
-	primary key (disabilities_id)
+	primary key (disabilities_id, date_updated)
 );
 
 CREATE TABLE employment_education (
@@ -81,7 +81,7 @@ CREATE TABLE employment_education (
 	user_id INTEGER NULL,
 	date_deleted date NULL,
 	export_id INTEGER NULL,
-	primary key (employment_education_id)
+	primary key (employment_education_id, date_updated)
 );
 
 CREATE TABLE enrollment (
@@ -165,7 +165,7 @@ CREATE TABLE enrollment (
 	user_id INTEGER NULL,
 	date_deleted date NULL,
 	export_id INTEGER NULL,
-	primary key (project_entry_id)
+	primary key (project_entry_id, date_updated)
 );
 
 CREATE TABLE exit (
@@ -197,7 +197,7 @@ CREATE TABLE exit (
 	user_id INTEGER NULL,
 	date_deleted date NULL,
 	export_id INTEGER NULL,
-	primary key (exit_id)
+	primary key (exit_id, date_updated)
 );
 
 CREATE TABLE funder (
@@ -212,7 +212,7 @@ CREATE TABLE funder (
     user_id integer NULL,
     date_deleted date NULL,
     export_id integer NULL,
-    primary key (funder_id)
+    primary key (funder_id, date_updated)
 );
 
 CREATE TABLE health_and_dvid (
@@ -234,7 +234,7 @@ CREATE TABLE health_and_dvid (
     user_id integer NULL,
     date_deleted date NULL,
     export_id integer NULL,
-    primary key (health_and_dvid)
+    primary key (health_and_dvid, date_updated)
 );
 
 CREATE TABLE income_benefits (
@@ -312,7 +312,7 @@ CREATE TABLE income_benefits (
     user_id integer NULL,
     date_deleted date NULL,
     export_id integer NULL,
-    primary key (income_benefits_id)
+    primary key (income_benefits_id, date_updated)
 );
 
 CREATE TABLE services (
@@ -331,7 +331,7 @@ CREATE TABLE services (
     user_id integer NULL,
     date_deleted date NULL,
     export_id integer NULL,
-    primary key (services_id)
+    primary key (services_id, date_updated)
 );
 
 CREATE TABLE shelter (
