@@ -20,5 +20,20 @@ public class Client {
 	public boolean has_no_race_data;
 	public Gender gender;
 	public VeteranStatus veteran_status;
+	public int year_entered_service;
+	public int year_left_service;
+	public boolean is_ww2_vet;
+	public boolean is_korean_war_vet;
+	public boolean is_vietname_war_vet;
+	public boolean is_desert_storm_vet;
+	public boolean is_afghanistan_oef_vet;
+	public boolean is_iraq_oif_vet;
+	public boolean is_iraq_ond_vet;
+	public boolean is_other_theater_vet;
+	public int military_branch;
+	public int discharge_status;
+	public Date date_created;
+	public Date date_updated;
+	public int user_id;
 	
 }
