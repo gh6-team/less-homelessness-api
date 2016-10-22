@@ -36,7 +36,7 @@ CREATE TABLE clients (
 
 DROP TABLE IF EXISTS disabilities;
 CREATE TABLE disabilities (
-    disabilities_id int NOT NULL,
+    disabilities_id text NOT NULL,
     project_entry_id int NULL,
     personal_id int NULL,
 	information_date date NULL,
@@ -45,8 +45,8 @@ CREATE TABLE disabilities (
 	indefinite_and_impairs int NULL,
 	documentation_on_file int NULL,
 	receiving_services int NULL,
-	PATH_how_confirmed int NULL,
-	PATH_SMI_information int NULL,
+	path_how_confirmed int NULL,
+	path_smi_information int NULL,
 	tcell_count_available int NULL,
 	tcell_count int NULL,
 	tcell_source int NULL,
