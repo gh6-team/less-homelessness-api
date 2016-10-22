@@ -19,7 +19,7 @@ public class TwilioController {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	String Inbound(@RequestParam String from, @RequestBody String body)
+	String Inbound(@RequestParam("FROM") String from, @RequestBody String body)
 	{
 		Message twilioMessage = new Message.Builder().body(new Body("Message from: " + from)).build();
 		MessagingResponse twilioResponse = new MessagingResponse.Builder().message(twilioMessage).build();
