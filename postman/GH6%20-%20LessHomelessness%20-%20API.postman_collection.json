@@ -1,0 +1,51 @@
+{
+	"variables": [],
+	"info": {
+		"name": "GH6 - LessHomelessness - API",
+		"_postman_id": "3d60bf10-952e-083f-fc63-629c3ffa3ec7",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/clients",
+			"request": {
+				"url": "http://localhost:8080/api/client",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"90777\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "New Client Creation",
+			"request": {
+				"url": "http://localhost:8080/api/client",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"client_id\":\"0\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

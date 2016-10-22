@@ -32,8 +32,8 @@ CREATE TABLE clients (
     other_theater INTEGER NULL,
     military_branch INTEGER NULL,
     discharge_status INTEGER NULL,
-    date_created date NULL,
-    date_updated date NOT NULL,
+    date_created DATETIME NULL,
+    date_updated DATETIME NOT NULL,
     user_id INTEGER NULL,
     primary key (client_id, date_updated)
 );

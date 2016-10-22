@@ -147,7 +147,8 @@ public class ClientDAO extends BaseJdbcDao {
 			}
 			else
 			{
-				clientInsertExisting.execute(parameterSource.addValue("client_id", client.id));
+				parameterSource.addValue("client_id", client.id);
+				clientInsertExisting.execute(parameterSource);
 			}
 			return client;
 		} catch (Exception e) {
