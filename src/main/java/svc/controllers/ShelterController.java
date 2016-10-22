@@ -68,4 +68,16 @@ public class ShelterController {
 		return shelterManager.assignBed(shelterBedAssignment);
 	}
 
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/available_bed_count")
+    Long GetAvailableBedCount(@PathVariable("id") Long id) {
+        if (id == null) {
+            LogSystem.LogEvent("Null id passed to controller");
+        }
+
+        return shelterManager.GetAvailableBedCount(id.intValue());
+    }
+
+
+
 }

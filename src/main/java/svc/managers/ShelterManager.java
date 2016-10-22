@@ -33,4 +33,8 @@ public class ShelterManager {
     public ShelterBedAssignment assignBed(ShelterBedAssignment shelterBedAssignment) {
         return shelterDAO.assignBed(shelterBedAssignment);
     }
+
+    public Long GetAvailableBedCount(int shelterId) {
+        return shelterDAO.getAvailableBedCount(shelterId);
+    }
 }
