@@ -360,7 +360,7 @@ CREATE TABLE shelter_bed_assignments (
     shelter_bed_id integer NOT NULL,
     assigned_to_client_id integer NOT NULL,
     assignment_date date NOT NULL,
-    assigned_by integer NOT NULL
+    assigned_by_id integer NOT NULL
 );
 
 
