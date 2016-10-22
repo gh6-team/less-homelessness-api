@@ -337,7 +337,7 @@ CREATE TABLE services (
 );
 
 CREATE TABLE shelters (
-    id integer DEFAULT 0 NOT NULL,
+	id INTEGER IDENTITY PRIMARY KEY,
     name varchar(50) NOT NULL,
     address varchar(50) NOT NULL,
     city varchar(50) NOT NULL,
@@ -352,13 +352,13 @@ CREATE TABLE shelters (
 );
 
 CREATE TABLE shelter_beds (
-    id integer DEFAULT 0 NOT NULL,
+	id INTEGER IDENTITY PRIMARY KEY,
     shelter_id integer NOT NULL,
     bed_name varchar(50) NOT NULL
 );
 
 CREATE TABLE shelter_bed_assignments (
-    id integer DEFAULT 0 NOT NULL,
+	id INTEGER IDENTITY PRIMARY KEY,
     shelter_bed_id integer NOT NULL,
     assigned_to_client_id integer NOT NULL,
     assignment_date date NOT NULL,
