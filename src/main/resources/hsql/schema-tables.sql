@@ -340,7 +340,8 @@ CREATE TABLE shelter (
     state varchar(50) NOT NULL,
     zip_code varchar(50) NOT NULL,
     phone_number varchar(50) NOT NULL,
-    location varchar(50) NULL,
+    latitude Decimal(9,6) NULL,
+    longitude Decimal(9,6) NULL,
     allows_men integer NOT NULL,
     allows_women integer NOT NULL,
     allows_children integer NOT NULL

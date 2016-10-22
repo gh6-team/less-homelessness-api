@@ -3,11 +3,13 @@ package svc.data.shelters;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import svc.data.jdbc.BaseJdbcDao;
+import svc.location.LatLng;
 import svc.logging.LogSystem;
 import svc.models.Shelter;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -19,6 +21,30 @@ public class ShelterDAO extends BaseJdbcDao {
             String sql = "SELECT * FROM shelters WHERE id = :shelter_id";
             Shelter shelter = jdbcTemplate.queryForObject(sql, parameterMap, new ShelterSQLMapper());
             return shelter;
+        } catch (Exception e) {
+            LogSystem.LogDBException(e);
+            return null;
+        }
+    }
+
+    public List<Shelter> getByLocation(LatLng location) {
+        try {
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            parameterMap.put("latitude", location.latitude);
+            parameterMap.put("longitude", location.longitude);
+            String sql = "SELECT * FROM shelters"; //TODO do actual geo query
+            return jdbcTemplate.query(sql, parameterMap, new ShelterSQLMapper());
+        } catch (Exception e) {
+            LogSystem.LogDBException(e);
+            return null;
+        }
+    }
+
+    public List<Shelter> getAllShelters() {
+        try {
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            String sql = "SELECT * FROM shelters";
+            return jdbcTemplate.query(sql, parameterMap, new ShelterSQLMapper());
         } catch (Exception e) {
             LogSystem.LogDBException(e);
             return null;
