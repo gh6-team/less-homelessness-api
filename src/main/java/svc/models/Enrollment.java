@@ -7,6 +7,7 @@ public class Enrollment {
 	public int personal_id;
 	public int project_id;
 	public Date entry_date;
+	public int household_id;
 	public int relationship_to_hoh;
 	public Integer prior_residence;
 	public String other_residence_prior;
