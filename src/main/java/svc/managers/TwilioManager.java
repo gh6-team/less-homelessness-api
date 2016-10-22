@@ -47,7 +47,7 @@ public class TwilioManager {
 				return "We're unable to locate an open bed, but Larry Rice never turns someone away.";
 			}
 			
-			if(user == null)
+			if(user == null || client == null)
 			{
 				return "Limited beds available at " + shelter.name + ".";
 			}

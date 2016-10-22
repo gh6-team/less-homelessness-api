@@ -58,7 +58,7 @@ CREATE TABLE disabilities (
 	viral_load_source INTEGER NULL,
 	data_collection_stage INTEGER NULL,
 	date_created date NULL,
-	date_updated date NULL,
+	date_updated date NOT NULL,
 	user_id INTEGER NULL,
 	date_deleted date NULL,
 	export_id INTEGER NULL,
@@ -77,7 +77,7 @@ CREATE TABLE employment_education (
 	not_employed_reason INTEGER NULL,
 	data_collection_stage INTEGER NULL,
 	date_created date NULL,
-	date_updated date NULL,
+	date_updated date NOT NULL,
 	user_id INTEGER NULL,
 	date_deleted date NULL,
 	export_id INTEGER NULL,
@@ -169,41 +169,41 @@ CREATE TABLE enrollment (
 	export_id INTEGER NULL,
 	primary key (enrollment_id)
 );
-
-CREATE TABLE exit (
-    exit_id INTEGER NOT NULL,
-    project_entry_id INTEGER NOT NULL,
-    personal_id INTEGER NOT NULL,
-	exit_date date NOT NULL,
-	destination INTEGER NULL,
-	other_destination INTEGER NULL,
-	assessment_disposition INTEGER NULL,
-	other_disposition INTEGER NULL,
-	housing_assignment INTEGER NULL,
-	subsity_information INTEGER NULL,
-	connection_with_soar INTEGER NULL,
-	written_aftercare_plan INTEGER NULL,
-	assistance_mainstream_benefits INTEGER NULL,
-	permanent_housing_placement INTEGER NULL,
-	temporary_shelter_placement INTEGER NULL,
-	exit_counseling INTEGER NULL,
-	further_follow_up_services INTEGER NULL,
-	scheduled_follow_up_contacts INTEGER NULL,
-	resource_package INTEGER NULL,
-	other_aftercare_plan_or_action INTEGER NULL,
-	project_completion_status INTEGER NULL,
-	early_exit_reason INTEGER NULL,
-	family_reunification_achieved INTEGER NULL,
-	date_created date NULL,
-	date_updated date NULL,
-	user_id INTEGER NULL,
-	date_deleted date NULL,
-	export_id INTEGER NULL,
-	primary key (exit_id, date_updated)
-);
+--
+--CREATE TABLE exit (
+--    exit_id INTEGER NOT NULL,
+--    project_entry_id INTEGER NOT NULL,
+--    personal_id INTEGER NOT NULL,
+--	exit_date date NOT NULL,
+--	destination INTEGER NULL,
+--	other_destination INTEGER NULL,
+--	assessment_disposition INTEGER NULL,
+--	other_disposition INTEGER NULL,
+--	housing_assignment INTEGER NULL,
+--	subsity_information INTEGER NULL,
+--	connection_with_soar INTEGER NULL,
+--	written_aftercare_plan INTEGER NULL,
+--	assistance_mainstream_benefits INTEGER NULL,
+--	permanent_housing_placement INTEGER NULL,
+--	temporary_shelter_placement INTEGER NULL,
+--	exit_counseling INTEGER NULL,
+--	further_follow_up_services INTEGER NULL,
+--	scheduled_follow_up_contacts INTEGER NULL,
+--	resource_package INTEGER NULL,
+--	other_aftercare_plan_or_action INTEGER NULL,
+--	project_completion_status INTEGER NULL,
+--	early_exit_reason INTEGER NULL,
+--	family_reunification_achieved INTEGER NULL,
+--	date_created date NULL,
+--	date_updated date NULL,
+--	user_id INTEGER NULL,
+--	date_deleted date NULL,
+--	export_id INTEGER NULL,
+--	primary key (exit_id, date_updated)
+--);
 
 CREATE TABLE funder (
-    funder_id integer NULL,
+    funder_id integer NOT NULL,
     project_id integer NULL,
     funder integer NULL,
     grant_id integer NULL,
@@ -218,7 +218,7 @@ CREATE TABLE funder (
 );
 
 CREATE TABLE health_and_dvid (
-    health_and_dvid integer NULL,
+    health_and_dvid integer NOT NULL,
     project_entry_id integer NULL,
     personal_id integer NULL,
     information_date date NULL,
@@ -240,7 +240,7 @@ CREATE TABLE health_and_dvid (
 );
 
 CREATE TABLE income_benefits (
-    income_benefits_id integer NULL,
+    income_benefits_id integer NOT NULL,
     project_entry_id integer NULL,
     personal_id integer NULL,
     information_date date NULL,
@@ -318,7 +318,7 @@ CREATE TABLE income_benefits (
 );
 
 CREATE TABLE services (
-    services_id integer NULL,
+    services_id integer NOT NULL,
     project_entry_id integer NULL,
     personal_id integer NULL,
     date_provided date NULL,
@@ -337,7 +337,7 @@ CREATE TABLE services (
 );
 
 CREATE TABLE shelters (
-	id INTEGER IDENTITY PRIMARY KEY,
+	id INTEGER PRIMARY KEY,
     name varchar(50) NOT NULL,
     address varchar(50) NOT NULL,
     city varchar(50) NOT NULL,
@@ -352,13 +352,13 @@ CREATE TABLE shelters (
 );
 
 CREATE TABLE shelter_beds (
-	id INTEGER IDENTITY PRIMARY KEY,
+	id INTEGER PRIMARY KEY,
     shelter_id integer NOT NULL,
     bed_name varchar(50) NOT NULL
 );
 
 CREATE TABLE shelter_bed_assignments (
-	id INTEGER IDENTITY PRIMARY KEY,
+	id INTEGER PRIMARY KEY,
     shelter_bed_id integer NOT NULL,
     assigned_to_client_id integer NOT NULL,
     assignment_date date NOT NULL,
