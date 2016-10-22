@@ -334,10 +334,11 @@ CREATE TABLE services (
     primary key (services_id, date_updated)
 );
 
-CREATE TABLE shelter (
+CREATE TABLE shelters (
     id integer DEFAULT 0 NOT NULL,
     name varchar(50) NOT NULL,
     address varchar(50) NOT NULL,
+    city varchar(50) NOT NULL,
     state varchar(50) NOT NULL,
     zip_code varchar(50) NOT NULL,
     phone_number varchar(50) NOT NULL,
