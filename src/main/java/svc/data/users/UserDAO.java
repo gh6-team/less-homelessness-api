@@ -31,7 +31,7 @@ public class UserDAO extends BaseJdbcDao {
         try {
             Map<String, Object> parameterMap = new HashMap<String, Object>();
             parameterMap.put("phone", phone);
-            String sql = "SELECT TOP 1 * FROM users WHERE phone = :phone";
+            String sql = "SELECT * FROM users WHERE phone = :phone LIMIT 1";
             User user = jdbcTemplate.queryForObject(sql, parameterMap, new UserSQLMapper());
             return user;
         } catch (Exception e) {
