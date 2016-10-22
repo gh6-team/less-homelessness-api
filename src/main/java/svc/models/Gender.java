@@ -8,11 +8,17 @@ public enum Gender {
 	NO_IDENTITY,
 	DOES_NOT_KNOW,
 	REFUSED,
-	NO_DATA;
+	NO_DATA,
+	OTHER;
 	
-	static Gender fromInteger(int value)
+	static Gender fromColumns(int gender, boolean otherGender)
 	{
-		switch(value)
+		if(otherGender)
+		{
+			return OTHER;
+		}
+		
+		switch(gender)
 		{
 		case 0: return FEMALE;
 		case 1: return MALE;
