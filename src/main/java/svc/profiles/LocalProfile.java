@@ -17,6 +17,7 @@ public class LocalProfile {
 		return dbBuilder.setType(EmbeddedDatabaseType.HSQL)
 				.addScript("hsql/schema-tables.sql")
 				.addScript("hsql/clients.sql")
+				.addScript("hsql/disabilities.sql")
 				.build();
 	}
 }
