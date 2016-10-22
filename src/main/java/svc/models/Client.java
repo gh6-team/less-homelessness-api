@@ -24,7 +24,7 @@ public class Client {
 	public int year_left_service;
 	public boolean is_ww2_vet;
 	public boolean is_korean_war_vet;
-	public boolean is_vietname_war_vet;
+	public boolean is_vietnam_war_vet;
 	public boolean is_desert_storm_vet;
 	public boolean is_afghanistan_oef_vet;
 	public boolean is_iraq_oif_vet;

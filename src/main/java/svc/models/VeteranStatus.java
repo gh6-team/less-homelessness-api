@@ -8,7 +8,7 @@ public enum VeteranStatus {
 	NO_DATA,
 	OTHER;
 	
-	static VeteranStatus fromColumn(int status)
+	public static VeteranStatus fromColumn(int status)
 	{	
 		switch(status)
 		{

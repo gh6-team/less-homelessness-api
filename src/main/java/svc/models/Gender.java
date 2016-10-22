@@ -11,7 +11,7 @@ public enum Gender {
 	NO_DATA,
 	OTHER;
 	
-	static Gender fromColumns(int gender, boolean otherGender)
+	public static Gender fromColumns(int gender, boolean otherGender)
 	{
 		if(otherGender)
 		{
