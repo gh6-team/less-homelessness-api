@@ -8,4 +8,7 @@ public class ShelterBedAssignment {
     public int assigned_to_client_id;
     public Date assignment_date;
     public int assigned_by_id;
+
+    public int shelter_id;
+    public String bed_name;
 }

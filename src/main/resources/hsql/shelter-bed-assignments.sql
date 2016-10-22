@@ -1,0 +1,15 @@
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (10000,1001,11,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (10001,1002,22,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (10002,1003,33,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (20000,2001,44,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (20001,2002,55,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (20002,2003,66,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (30000,3001,77,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (30001,3002,88,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (30002,3003,99,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (40000,4001,111,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (40001,4002,222,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (40002,4003,333,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (50000,5001,444,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (50001,5002,555,'2016-10-23',99999);
+INSERT INTO shelter_bed_assignments (id,shelter_bed_id,assigned_to_client_id,assignment_date,assigned_by_id) VALUES (50002,5003,666,'2016-10-23',99999);

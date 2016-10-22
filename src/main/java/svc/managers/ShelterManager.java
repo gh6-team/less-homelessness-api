@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import svc.data.shelters.ShelterDAO;
 import svc.location.LatLng;
 import svc.models.Shelter;
+import svc.models.ShelterBedAssignment;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -21,5 +22,15 @@ public class ShelterManager {
         return shelterDAO.getByLocation(location);
     }
 
-    public List<Shelter> GetAllShelters() { return shelterDAO.getAllShelters(); }
+    public List<Shelter> GetAllShelters() {
+        return shelterDAO.getAllShelters();
+    }
+
+    public List<ShelterBedAssignment> GetBedAssignmentsForShelter(int shelterId) {
+        return shelterDAO.getBedAssignmentsForShelter(shelterId);
+    }
+
+    public ShelterBedAssignment assignBed(ShelterBedAssignment shelterBedAssignment) {
+        return shelterDAO.assignBed(shelterBedAssignment);
+    }
 }
