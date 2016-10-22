@@ -29,4 +29,8 @@ public class ShelterManager {
     public List<ShelterBedAssignment> GetBedAssignmentsForShelter(int shelterId) {
         return shelterDAO.getBedAssignmentsForShelter(shelterId);
     }
+
+    public ShelterBedAssignment assignBed(ShelterBedAssignment shelterBedAssignment) {
+        return shelterDAO.assignBed(shelterBedAssignment);
+    }
 }

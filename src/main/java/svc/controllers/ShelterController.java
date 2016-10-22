@@ -7,7 +7,9 @@ import svc.dto.SheltersDTO;
 import svc.location.LatLng;
 import svc.logging.LogSystem;
 import svc.managers.ShelterManager;
+import svc.models.Opportunity;
 import svc.models.Shelter;
+import svc.models.ShelterBedAssignment;
 
 import javax.inject.Inject;
 
@@ -50,5 +52,22 @@ public class ShelterController {
     ShelterBedAssignmentsDTO FindShelterBedAssignments(@PathVariable("id") Long id) {
         return new ShelterBedAssignmentsDTO(shelterManager.GetBedAssignmentsForShelter(id.intValue()));
     }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST)
+    ShelterBedAssignment AssignBed(@RequestBody ShelterBedAssignment shelterBedAssignment) {
+        if (shelterBedAssignment == null) {
+            LogSystem.LogEvent("Null bed assignment passed to post.");
+            return null;
+        }
+
+        if (shelterBedAssignment.id != 0) {
+            LogSystem.LogEvent("shelterBedAssignment with id was passed to post.");
+            return null;
+        }
+
+        return shelterManager.assignBed(shelterBedAssignment);
+    }
+
 
 }
