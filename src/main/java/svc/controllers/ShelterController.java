@@ -14,27 +14,34 @@ import javax.inject.Inject;
 @EnableAutoConfiguration
 @RequestMapping("/shelters")
 public class ShelterController {
-    @Inject
-    ShelterManager shelterManager;
+	@Inject
+	ShelterManager shelterManager;
 
-    @ResponseBody
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    Shelter GetShelter(@PathVariable("id") Long id) {
-        if (id == null) {
-            LogSystem.LogEvent("Null id passed to controller");
-        }
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	Shelter GetShelter(@PathVariable("id") Long id) {
+		if (id == null) {
+			LogSystem.LogEvent("Null id passed to controller");
+		}
 
-        return shelterManager.GetShelterById(id.intValue());
-    }
+		return shelterManager.GetShelterById(id.intValue());
+	}
 
-    @ResponseBody
-    @RequestMapping(method = RequestMethod.GET)
-    SheltersDTO FindShelters(@RequestParam(value = "latitude", required = true) Double latitude,
-                             @RequestParam(value = "longitude", required = true) Double longitude) {
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET)
+	SheltersDTO FindShelters(@RequestParam(value = "latitude", required = false) Double latitude,
+							@RequestParam(value = "longitude", required = false) Double longitude) {
 
-        LatLng location = new LatLng(latitude, longitude);
-        return new SheltersDTO(shelterManager.GetSheltersByLocation(location));
-    }
-
+		if (latitude != null && longitude != null) {
+			LatLng location = new LatLng(latitude, longitude);
+			return new SheltersDTO(shelterManager.GetSheltersByLocation(location));
+		}
+		
+		if (latitude == null && longitude == null) {
+			return new SheltersDTO(shelterManager.GetAllShelters());
+		}
+		
+		return null;
+	}
 
 }
