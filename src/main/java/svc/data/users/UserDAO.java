@@ -27,6 +27,19 @@ public class UserDAO extends BaseJdbcDao {
 		}
 	}
 	
+	public User getUserByPhone(String phone) {
+        try {
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            parameterMap.put("phone", phone);
+            String sql = "SELECT TOP 1 * FROM users WHERE phone = :phone";
+            User user = jdbcTemplate.queryForObject(sql, parameterMap, new UserSQLMapper());
+            return user;
+        } catch (Exception e) {
+            LogSystem.LogDBException(e);
+            return null;
+        }
+    }
+	
 
 	private class UserSQLMapper implements RowMapper<User> {
 		public User mapRow(ResultSet rs, int i) {

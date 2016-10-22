@@ -15,5 +15,9 @@ public class UserManager {
 	public User Login(String userId, String pwd) {
 		return userDAO.checkUserLogin(userId, pwd);
 	}
+	
+	public User GetUserByPhone(String phone) {
+        return userDAO.getUserByPhone(phone);
+    }
 
 }
