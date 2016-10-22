@@ -18,8 +18,11 @@ public class LocalProfile {
 		EmbeddedDatabaseBuilder dbBuilder = new EmbeddedDatabaseBuilder();
 		return dbBuilder.setType(EmbeddedDatabaseType.HSQL)
 				.addScript("hsql/schema-tables.sql")
+				.addScript("hsql/users.sql")
 				.addScript("hsql/clients.sql")
 				.addScript("hsql/disabilities.sql")
+				.addScript("hsql/employment_education.sql")
+				.addScript("hsql/enrollment.sql")
 				.addScript("hsql/shelters.sql")
 				.addScript("hsql/shelter-beds.sql")
 				.addScript("hsql/shelter-bed-assignments.sql")

@@ -6,7 +6,7 @@ CREATE TABLE clients (
     first_name varchar(50) NULL,
     middle_name varchar(50) NULL,
     last_name varchar(50) NULL,
-    name_data_quality varchar(50) NULL,
+    name_data_quality INTEGER NULL,
     ssn INTEGER NULL,
     ssn_data_quality INTEGER NULL,
     dob date NULL,
@@ -32,8 +32,8 @@ CREATE TABLE clients (
     other_theater INTEGER NULL,
     military_branch INTEGER NULL,
     discharge_status INTEGER NULL,
-    date_created date NULL,
-    date_updated date NULL,
+    date_created DATETIME NULL,
+    date_updated DATETIME NOT NULL,
     user_id INTEGER NULL,
     primary key (client_id, date_updated)
 );
@@ -85,6 +85,7 @@ CREATE TABLE employment_education (
 );
 
 CREATE TABLE enrollment (
+	enrollment_id INTEGER NOT NULL,
     project_entry_id INTEGER NOT NULL,
     personal_id INTEGER NOT NULL,
     project_id INTEGER NOT NULL,
@@ -122,6 +123,7 @@ CREATE TABLE enrollment (
 	child_welfare_months INTEGER NULL,
 	former_ward_juvenile_justice INTEGER NULL,
 	juvenile_justice_years INTEGER NULL,
+	juvenile_justice_months INTEGER NULL,
 	household_dynamics INTEGER NULL,
 	sexual_orientation_gender_id_youth INTEGER NULL,
 	sexual_orientation_gender_id_fam INTEGER NULL,
@@ -165,7 +167,7 @@ CREATE TABLE enrollment (
 	user_id INTEGER NULL,
 	date_deleted date NULL,
 	export_id INTEGER NULL,
-	primary key (project_entry_id, date_updated)
+	primary key (enrollment_id)
 );
 
 CREATE TABLE exit (
@@ -363,6 +365,22 @@ CREATE TABLE shelter_bed_assignments (
     assigned_by_id integer NOT NULL
 );
 
+CREATE TABLE users (
+	id integer DEFAULT 0 NOT NULL,
+	name varchar(50) NOT NULL,
+	role_name varchar(50) NOT NULL,
+	organization_name varchar(50) NULL,
+	
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE user_login (
+	id integer DEFAULT 0 NOT NULL,
+	pwd varchar(50) NOT NULL,
+	userid varchar(50) NOT NULL,
+	
+	PRIMARY KEY (id)
+);
 
 
 
