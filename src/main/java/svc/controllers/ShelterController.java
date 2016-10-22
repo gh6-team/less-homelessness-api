@@ -7,7 +7,6 @@ import svc.dto.SheltersDTO;
 import svc.location.LatLng;
 import svc.logging.LogSystem;
 import svc.managers.ShelterManager;
-import svc.models.Opportunity;
 import svc.models.Shelter;
 import svc.models.ShelterBedAssignment;
 
