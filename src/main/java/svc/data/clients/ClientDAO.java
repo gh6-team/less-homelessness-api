@@ -25,12 +25,49 @@ import svc.models.Funder;
 @Repository
 public class ClientDAO extends BaseJdbcDao {
 	private SimpleJdbcInsert clientInsert;
+	private SimpleJdbcInsert clientInsertExisting;
 
     @Override
 	protected void createSimpleJdbcInserts(DataSource dataSource) {
     	clientInsert = new SimpleJdbcInsert(dataSource)
-                .withTableName("client")
-                .usingGeneratedKeyColumns("id")
+                .withTableName("clients")
+                .usingGeneratedKeyColumns("client_id")
+                .usingColumns(
+                		"client_id",
+                		"first_name", 
+                		"middle_name", 
+                		"last_name", 
+                		"name_data_quality",
+                		"ssn",
+                		"ssn_data_quality",
+                		"dob",
+                		"dob_data_quality",
+                		"am_ind_ak_native",
+                		"asian",
+                		"black",
+                		"native_hi_other_pacific",
+                		"race_none",
+                		"gender",
+                		"other_gender",
+                		"veteran_status",
+                		"year_entered_service",
+                		"year_separated",
+                		"world_war_ii",
+                		"korean_war",
+                		"vietnam_war",
+                		"desert_storm",
+                		"afghanistan_oef",
+                		"iraq_oif",
+                		"iraq_ond",
+                		"other_theater",
+                		"military_branch",
+                		"discharge_status",
+                		"date_created",
+                		"date_updated",
+                		"user_id");
+    	
+    	clientInsertExisting = new SimpleJdbcInsert(dataSource)
+                .withTableName("clients")
                 .usingColumns(
                 		"client_id", 
                 		"first_name", 
@@ -41,7 +78,7 @@ public class ClientDAO extends BaseJdbcDao {
                 		"ssn_data_quality",
                 		"dob",
                 		"dob_data_quality",
-                		"am_indian_ak_native",
+                		"am_ind_ak_native",
                 		"asian",
                 		"black",
                 		"native_hi_other_pacific",
@@ -69,8 +106,7 @@ public class ClientDAO extends BaseJdbcDao {
     public Client saveClient(Client client)
     {
 		try {
-			final SqlParameterSource parameterSource = new MapSqlParameterSource()
-	                .addValue("client_id", client.id)
+			MapSqlParameterSource parameterSource = new MapSqlParameterSource()
 	                .addValue("first_name", client.first_name)
 	                .addValue("middle_name", client.middle_name)
 	                .addValue("last_name", client.last_name)
@@ -79,33 +115,40 @@ public class ClientDAO extends BaseJdbcDao {
 	                .addValue("ssn_data_quality", client.ssn_data_quality)
 	                .addValue("dob", client.date_of_birth)
 	                .addValue("dob_data_quality", client.date_of_birth_quality)
-	                .addValue("am_indian_ak_native", client.is_american_indian)
-	                .addValue("asian", client.is_asian)
-	                .addValue("black", client.is_black)
-	                .addValue("native_hi_other_pacific", client.is_pacific_islander)
-	                .addValue("race_none", client.has_no_race_data)
-	                .addValue("gender", client.gender.getGender())
-	                .addValue("other_gender", client.gender.getOtherGender())
-	                .addValue("veteran_status", client.veteran_status.toColumnValue())
+	                .addValue("am_indian_ak_native", client.is_american_indian ? 1 : 0)
+	                .addValue("asian", client.is_asian ? 1 : 0)
+	                .addValue("black", client.is_black ? 1 : 0)
+	                .addValue("native_hi_other_pacific", client.is_pacific_islander ? 1 : 0)
+	                .addValue("race_none", client.has_no_race_data ? 1 : 0)
+	                .addValue("gender", client.gender == null ? null : client.gender.getGender())
+	                .addValue("other_gender", client.gender == null ? null : client.gender.getOtherGender())
+	                .addValue("veteran_status", client.veteran_status == null ? null : client.veteran_status.toColumnValue())
 	                .addValue("year_entered_service", client.year_entered_service)
 	                .addValue("year_separated", client.year_left_service)
-	                .addValue("world_war_ii", client.is_ww2_vet)
-	                .addValue("korean_war", client.is_korean_war_vet)
-	                .addValue("vietnam_war", client.is_vietnam_war_vet)
-	                .addValue("desert_storm", client.is_desert_storm_vet)
-	                .addValue("afghanistan_oef", client.is_afghanistan_oef_vet)
-	                .addValue("iraq_oif", client.is_iraq_oif_vet)
-	                .addValue("iraq_ond", client.is_iraq_ond_vet)
-	                .addValue("other_theater", client.is_other_theater_vet)
+	                .addValue("world_war_ii", client.is_ww2_vet ? 1 : 0)
+	                .addValue("korean_war", client.is_korean_war_vet ? 1 : 0)
+	                .addValue("vietnam_war", client.is_vietnam_war_vet ? 1 : 0)
+	                .addValue("desert_storm", client.is_desert_storm_vet ? 1 : 0)
+	                .addValue("afghanistan_oef", client.is_afghanistan_oef_vet ? 1 : 0)
+	                .addValue("iraq_oif", client.is_iraq_oif_vet ? 1 : 0)
+	                .addValue("iraq_ond", client.is_iraq_ond_vet ? 1 : 0)
+	                .addValue("other_theater", client.is_other_theater_vet ? 1 : 0)
 	                .addValue("military_branch", client.military_branch)
 	                .addValue("discharge_status", client.discharge_status)
 	                .addValue("date_created", client.date_created)
 	                .addValue("date_updated", new Date())
 	                .addValue("user_id", client.user_id);
 			
-			Number key = clientInsert.executeAndReturnKey(parameterSource);
-			client.id = key.intValue();
-	
+			
+			if(client.id == 0)
+			{
+				Number key = clientInsert.executeAndReturnKey(parameterSource);
+				client.id = key.intValue();
+			}
+			else
+			{
+				clientInsertExisting.execute(parameterSource.addValue("client_id", client.id));
+			}
 			return client;
 		} catch (Exception e) {
 			LogSystem.LogDBException(e);

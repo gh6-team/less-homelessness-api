@@ -10,6 +10,7 @@ CREATE TABLE clients (
     ssn INTEGER NULL,
     ssn_data_quality INTEGER NULL,
     dob date NULL,
+    dob_data_quality INTEGER NULL,
     am_ind_ak_native INTEGER NULL,
     asian INTEGER NULL,
     black INTEGER NULL,
@@ -365,13 +366,17 @@ CREATE TABLE users (
 	id integer DEFAULT 0 NOT NULL,
 	name varchar(50) NOT NULL,
 	role_name varchar(50) NOT NULL,
-	organization_name varchar(50) NULL
+	organization_name varchar(50) NULL,
+	
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE user_login (
 	id integer DEFAULT 0 NOT NULL,
 	pwd varchar(50) NOT NULL,
-	userid varchar(50) NOT NULL
+	userid varchar(50) NOT NULL,
+	
+	PRIMARY KEY (id)
 );
 
 
