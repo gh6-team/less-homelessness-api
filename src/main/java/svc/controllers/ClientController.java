@@ -1,6 +1,8 @@
 package svc.controllers;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import svc.logging.LogSystem;
 import svc.managers.ClientManager;
@@ -30,12 +32,18 @@ public class ClientController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    Client GetClient(@PathVariable("id") Integer id) {
+    ResponseEntity GetClient(@PathVariable("id") Integer id) {
         if (id == null) {
             LogSystem.LogEvent("Null id passed to controller");
         }
 
-        return clientManager.GetClientById(id);
+        Client client = clientManager.GetClientById(id);
+        if(client == null)
+        {
+        	return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        
+        return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
 }

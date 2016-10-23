@@ -2,7 +2,7 @@ DROP SCHEMA PUBLIC CASCADE
 /*http://hsqldb.org/doc/guide/compatibility-chapt.html#coc_compatibility_mysql*/
 
 CREATE TABLE clients (
-    client_id INTEGER DEFAULT 0 NOT NULL,
+    client_id INTEGER IDENTITY PRIMARY KEY,
     first_name varchar(50) NULL,
     middle_name varchar(50) NULL,
     last_name varchar(50) NULL,
@@ -36,12 +36,12 @@ CREATE TABLE clients (
     discharge_status INTEGER NULL,
     date_created DATETIME NULL,
     date_updated DATETIME NOT NULL,
-    user_id INTEGER NULL,
-    primary key (client_id, date_updated)
+    user_id INTEGER NULL
 );
 
 CREATE TABLE disabilities (
-    disabilities_id varchar(50) NOT NULL,
+	table_id INTEGER IDENTITY PRIMARY KEY,
+    disabilities_id varchar(50) DEFAULT '' NOT NULL,
     project_entry_id INTEGER NULL,
     personal_id INTEGER NULL,
 	information_date date NULL,
@@ -60,15 +60,14 @@ CREATE TABLE disabilities (
 	viral_load_source INTEGER NULL,
 	data_collection_stage INTEGER NULL,
 	date_created date NULL,
-	date_updated date NULL,
+	date_updated date NOT NULL,
 	user_id INTEGER NULL,
 	date_deleted date NULL,
-	export_id INTEGER NULL,
-	primary key (disabilities_id, date_updated)
+	export_id INTEGER NULL
 );
 
 CREATE TABLE employment_education (
-    employment_education_id INTEGER NOT NULL,
+    employment_education_id INTEGER IDENTITY PRIMARY KEY,
     project_entry_id INTEGER NOT NULL,
     personal_id INTEGER NOT NULL,
 	information_date date NOT NULL,
@@ -79,15 +78,14 @@ CREATE TABLE employment_education (
 	not_employed_reason INTEGER NULL,
 	data_collection_stage INTEGER NULL,
 	date_created date NULL,
-	date_updated date NULL,
+	date_updated date NOT NULL,
 	user_id INTEGER NULL,
 	date_deleted date NULL,
-	export_id INTEGER NULL,
-	primary key (employment_education_id, date_updated)
+	export_id INTEGER NULL
 );
 
 CREATE TABLE enrollment (
-	enrollment_id INTEGER NOT NULL,
+	enrollment_id INTEGER IDENTITY PRIMARY KEY,
     project_entry_id INTEGER NOT NULL,
     personal_id INTEGER NOT NULL,
     project_id INTEGER NOT NULL,
@@ -168,8 +166,7 @@ CREATE TABLE enrollment (
 	date_updated date NULL,
 	user_id INTEGER NULL,
 	date_deleted date NULL,
-	export_id INTEGER NULL,
-	primary key (enrollment_id)
+	export_id INTEGER NULL
 );
 
 CREATE TABLE exit (
@@ -205,7 +202,7 @@ CREATE TABLE exit (
 );
 
 CREATE TABLE funder (
-    funder_id integer NULL,
+    funder_id integer NOT NULL,
     project_id integer NULL,
     funder integer NULL,
     grant_id integer NULL,
@@ -220,7 +217,7 @@ CREATE TABLE funder (
 );
 
 CREATE TABLE health_and_dvid (
-    health_and_dvid integer NULL,
+    health_and_dvid integer NOT NULL,
     project_entry_id integer NULL,
     personal_id integer NULL,
     information_date date NULL,
@@ -242,7 +239,7 @@ CREATE TABLE health_and_dvid (
 );
 
 CREATE TABLE income_benefits (
-    income_benefits_id integer NULL,
+    income_benefits_id integer NOT NULL,
     project_entry_id integer NULL,
     personal_id integer NULL,
     information_date date NULL,
@@ -320,7 +317,7 @@ CREATE TABLE income_benefits (
 );
 
 CREATE TABLE services (
-    services_id integer NULL,
+    services_id integer NOT NULL,
     project_entry_id integer NULL,
     personal_id integer NULL,
     date_provided date NULL,
@@ -339,7 +336,7 @@ CREATE TABLE services (
 );
 
 CREATE TABLE shelters (
-	id INTEGER IDENTITY PRIMARY KEY,
+	id INTEGER PRIMARY KEY,
     name varchar(50) NOT NULL,
     address varchar(50) NOT NULL,
     city varchar(50) NOT NULL,
@@ -354,13 +351,13 @@ CREATE TABLE shelters (
 );
 
 CREATE TABLE shelter_beds (
-	id INTEGER IDENTITY PRIMARY KEY,
+	id INTEGER PRIMARY KEY,
     shelter_id integer NOT NULL,
     bed_name varchar(50) NOT NULL
 );
 
 CREATE TABLE shelter_bed_assignments (
-	id INTEGER IDENTITY PRIMARY KEY,
+	id INTEGER PRIMARY KEY,
     shelter_bed_id integer NOT NULL,
     assigned_to_client_id integer NOT NULL,
     assignment_date date NOT NULL,

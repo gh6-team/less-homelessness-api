@@ -18,9 +18,54 @@ import java.util.Map;
 public class ClientDAO extends BaseJdbcDao {
 	private SimpleJdbcInsert clientInsert;
 	private SimpleJdbcInsert clientInsertExisting;
+	private SimpleJdbcInsert clientDisabilitiesInsert;
+	private SimpleJdbcInsert employmentEducationInsert;
 
     @Override
 	protected void createSimpleJdbcInserts(DataSource dataSource) {
+    	employmentEducationInsert = new SimpleJdbcInsert(dataSource)
+    			.withTableName("employment_education")
+    			.usingGeneratedKeyColumns("employment_education_id")
+    			.usingColumns("project_entry_id",
+    					"personal_id",
+    					"information_date",
+    					"last_grade_completed",
+    					"school_status",
+    					"employed",
+    					"employment_type",
+    					"not_employed_reason",
+    					"data_collection_stage",
+    					"date_created",
+    					"date_updated",
+    					"user_id",
+    					"date_deleted",
+    					"export_id");
+    	clientDisabilitiesInsert = new SimpleJdbcInsert(dataSource)
+    			.withTableName("disabilities")
+    			.usingGeneratedKeyColumns("disabilities_id")
+    			.usingColumns("project_entry_id",
+    					"personal_id",
+    					"information_date",
+    					"disabilitiy_type",
+    					"disability_response",
+    					"indefinite_and_impairs",
+    					"documentation_on_file",
+    					"receiving_services",
+    					"path_how_confirmed",
+    					"path_smi_information",
+    					"tcell_count_available",
+    					"tcell_count",
+    					"tcell_source",
+    					"viral_load_available",
+    					"viral_load",
+    					"viral_load_source",
+    					"data_collection_stage",
+    					"date_created",
+    					"date_updated",
+    					"user_id",
+    					"date_deleted",
+    					"export_id"
+    					);
     	clientInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("clients")
                 .usingGeneratedKeyColumns("client_id")
@@ -97,57 +142,142 @@ public class ClientDAO extends BaseJdbcDao {
     public Client saveClient(Client client)
     {
 		try {
-			MapSqlParameterSource parameterSource = new MapSqlParameterSource()
-	                .addValue("first_name", client.first_name)
-	                .addValue("middle_name", client.middle_name)
-	                .addValue("last_name", client.last_name)
-	                .addValue("name_data_quality", client.name_data_quality)
-	                .addValue("ssn", client.ssn)
-	                .addValue("ssn_data_quality", client.ssn_data_quality)
-	                .addValue("dob", client.date_of_birth)
-	                .addValue("dob_data_quality", client.date_of_birth_quality)
-	                .addValue("am_indian_ak_native", client.is_american_indian ? 1 : 0)
-	                .addValue("asian", client.is_asian ? 1 : 0)
-	                .addValue("black", client.is_black ? 1 : 0)
-	                .addValue("native_hi_other_pacific", client.is_pacific_islander ? 1 : 0)
-	                .addValue("race_none", client.has_no_race_data ? 1 : 0)
-	                .addValue("gender", client.gender == null ? null : client.gender.getGender())
-	                .addValue("other_gender", client.gender == null ? null : client.gender.getOtherGender())
-	                .addValue("veteran_status", client.veteran_status == null ? null : client.veteran_status.toColumnValue())
-	                .addValue("year_entered_service", client.year_entered_service)
-	                .addValue("year_separated", client.year_left_service)
-	                .addValue("world_war_ii", client.is_ww2_vet ? 1 : 0)
-	                .addValue("korean_war", client.is_korean_war_vet ? 1 : 0)
-	                .addValue("vietnam_war", client.is_vietnam_war_vet ? 1 : 0)
-	                .addValue("desert_storm", client.is_desert_storm_vet ? 1 : 0)
-	                .addValue("afghanistan_oef", client.is_afghanistan_oef_vet ? 1 : 0)
-	                .addValue("iraq_oif", client.is_iraq_oif_vet ? 1 : 0)
-	                .addValue("iraq_ond", client.is_iraq_ond_vet ? 1 : 0)
-	                .addValue("other_theater", client.is_other_theater_vet ? 1 : 0)
-	                .addValue("military_branch", client.military_branch)
-	                .addValue("discharge_status", client.discharge_status)
-	                .addValue("date_created", client.date_created)
-	                .addValue("date_updated", new Date())
-	                .addValue("user_id", client.user_id);
-			
-			
+			MapSqlParameterSource clientParameters = getClientParameters(client);
 			if(client.id == 0)
 			{
-				LogSystem.LogEvent(clientInsert.getInsertString());
-				Number key = clientInsert.executeAndReturnKey(parameterSource);
+				Number key = clientInsert.executeAndReturnKey(clientParameters);
 				client.id = key.intValue();
 			}
 			else
 			{
-				parameterSource.addValue("client_id", client.id);
-				clientInsertExisting.execute(parameterSource);
+				Map<String, Object> parameterMap = new HashMap<String, Object>();
+				parameterMap.put("loginId", client.id);
+				String sql = "DELETE FROM clients WHERE client_id = :loginId";
+				jdbcTemplate.update(sql, parameterMap);
+				
+				clientParameters.addValue("client_id", client.id);
+				clientInsertExisting.execute(clientParameters);
 			}
+			saveClientDisabilities(client);
+			saveEmploymentEducation(client);
 			return client;
 		} catch (Exception e) {
 			LogSystem.LogDBException(e);
 			return null;
 		}
     }
+    
+    private void saveEmploymentEducation(Client client)
+    {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("loginId", client.id);
+		String sql = "DELETE FROM employment_education WHERE personal_id = :loginId";
+		jdbcTemplate.update(sql, parameterMap);
+		
+	    EmploymentEducation employmentEducation = client.employment_education_details;
+	    employmentEducation.personal_id = client.id;
+	    MapSqlParameterSource employmentParameters = getEmploymentParameters(employmentEducation);
+	    Number key = employmentEducationInsert.executeAndReturnKey(employmentParameters);
+	    employmentEducation.id = key.intValue();
+    }
+    
+    private void saveClientDisabilities(Client client)
+    {
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("loginId", client.id);
+		String sql = "DELETE FROM disabilities WHERE personal_id = :loginId";
+		jdbcTemplate.update(sql, parameterMap);
+		
+    	for(ClientDisabilities disability : client.disabilities)
+    	{
+    		disability.personal_id = client.id;
+			MapSqlParameterSource disabilityParameters = getDisabilityParameters(disability);
+			clientDisabilitiesInsert.executeAndReturnKey(disabilityParameters);
+    	}
+    }
+
+    private MapSqlParameterSource getEmploymentParameters(EmploymentEducation employment)
+    {
+    	return new MapSqlParameterSource()
+    			.addValue("employement_education_id", employment.id)
+    			.addValue("project_entry_id", employment.project_entry_id)
+    			.addValue("personal_id", employment.personal_id)
+    			.addValue("information_date", employment.information_date)
+    			.addValue("last_grade_completed", employment.last_grade_completed)
+    			.addValue("school_status", employment.school_status)
+    			.addValue("employed", employment.employed_status)
+    			.addValue("employment_type", employment.employment_type)
+    			.addValue("not_employed_reason", employment.not_employed_reason)
+    			.addValue("data_collection_stage", employment.data_collection_stage)
+    			.addValue("date_created", employment.date_created)
+    			.addValue("date_updated", employment.date_updated)
+    			.addValue("user_id", employment.user_id)
+    			.addValue("date_deleted", employment.date_deleted)
+    			.addValue("export_id", employment.export_id);
+    }
+    private MapSqlParameterSource getDisabilityParameters(ClientDisabilities disability)
+    {
+    	return new MapSqlParameterSource()
+    			.addValue("project_entry_id", disability.project_entry_id)
+    			.addValue("personal_id", disability.personal_id)
+    			.addValue("information_date", disability.information_date)
+    			.addValue("disabilitiy_type", disability.disability_type)
+    			.addValue("disability_response", disability.disability_response)
+    			.addValue("indefinite_and_impairs", disability.indefinite_and_impairs)
+    			.addValue("documentation_on_file", disability.documentation_on_file)
+    			.addValue("receiving_services", disability.receiving_services)
+    			.addValue("path_how_confirmed", disability.path_how_confirmed)
+    			.addValue("path_smi_information", disability.path_smi_information)
+    			.addValue("tcell_count_available", disability.is_tcell_count_available)
+    			.addValue("tcell_count", disability.tcell_count)
+    			.addValue("tcell_source", disability.tcell_source)
+    			.addValue("viral_load_available", disability.is_viral_load_available)
+    			.addValue("viral_load", disability.viral_load)
+    			.addValue("viral_load_source", disability.viral_load_source)
+    			.addValue("data_collection_stage", disability.data_collection_stage)
+    			.addValue("date_created", disability.date_created)
+    			.addValue("date_updated", disability.date_updated)
+    			.addValue("user_id", disability.user_id)
+    			.addValue("date_deleted", disability.date_deleted)
+    			.addValue("export_id", disability.export_id);
+
+    }
+    
+	private MapSqlParameterSource getClientParameters(Client client) {
+		return new MapSqlParameterSource()
+		        .addValue("first_name", client.first_name)
+		        .addValue("middle_name", client.middle_name)
+		        .addValue("last_name", client.last_name)
+		        .addValue("name_data_quality", client.name_data_quality)
+		        .addValue("ssn", client.ssn)
+		        .addValue("ssn_data_quality", client.ssn_data_quality)
+		        .addValue("dob", client.date_of_birth)
+		        .addValue("dob_data_quality", client.date_of_birth_quality)
+		        .addValue("am_indian_ak_native", client.is_american_indian ? 1 : 0)
+		        .addValue("asian", client.is_asian ? 1 : 0)
+		        .addValue("black", client.is_black ? 1 : 0)
+		        .addValue("native_hi_other_pacific", client.is_pacific_islander ? 1 : 0)
+		        .addValue("race_none", client.has_no_race_data ? 1 : 0)
+		        .addValue("gender", client.gender == null ? null : client.gender.getGender())
+		        .addValue("other_gender", client.gender == null ? null : client.gender.getOtherGender())
+		        .addValue("veteran_status", client.veteran_status == null ? null : client.veteran_status.toColumnValue())
+		        .addValue("year_entered_service", client.year_entered_service)
+		        .addValue("year_separated", client.year_left_service)
+		        .addValue("world_war_ii", client.is_ww2_vet ? 1 : 0)
+		        .addValue("korean_war", client.is_korean_war_vet ? 1 : 0)
+		        .addValue("vietnam_war", client.is_vietnam_war_vet ? 1 : 0)
+		        .addValue("desert_storm", client.is_desert_storm_vet ? 1 : 0)
+		        .addValue("afghanistan_oef", client.is_afghanistan_oef_vet ? 1 : 0)
+		        .addValue("iraq_oif", client.is_iraq_oif_vet ? 1 : 0)
+		        .addValue("iraq_ond", client.is_iraq_ond_vet ? 1 : 0)
+		        .addValue("other_theater", client.is_other_theater_vet ? 1 : 0)
+		        .addValue("military_branch", client.military_branch)
+		        .addValue("discharge_status", client.discharge_status)
+		        .addValue("date_created", client.date_created)
+		        .addValue("date_updated", new Date())
+		        .addValue("user_id", client.user_id);
+	}
 
     public Client getClientById(int client_id) {
         try {
@@ -155,11 +285,28 @@ public class ClientDAO extends BaseJdbcDao {
             parameterMap.put("client_id", client_id);
             String sql = "SELECT * FROM clients WHERE client_id = :client_id";
             Client client = jdbcTemplate.queryForObject(sql, parameterMap, new ClientSQLMapper());
+            String disabilitySql = "SELECT * FROM disabilities WHERE personal_id = :client_id";
+            client.disabilities = jdbcTemplate.query(disabilitySql, parameterMap, new ClientDisabilitiesSQLMapper());
+            client.employment_education_details = getEmploymentEducation(client_id);
             return client;
         } catch (Exception e) {
             LogSystem.LogDBException(e);
             return null;
         }
+    }
+    
+    public EmploymentEducation getEmploymentEducation(int client_id)
+    {
+    	try
+    	{
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
+            parameterMap.put("client_id", client_id);
+	    	String employmentSql = "SELECT * FROM employment_education WHERE personal_id = :client_id";
+	        return jdbcTemplate.queryForObject(employmentSql, parameterMap, new EmploymentEducationSQLMapper());
+    	}catch(Exception e){
+    		LogSystem.LogDBException(e);
+    		return new EmploymentEducation();
+    	}
     }
 
     private class ClientSQLMapper implements RowMapper<Client> {
@@ -215,8 +362,8 @@ public class ClientDAO extends BaseJdbcDao {
 				clientDisabilities.project_entry_id = rs.getInt("project_entry_id");
 				clientDisabilities.personal_id = rs.getInt("personal_id");
 				clientDisabilities.information_date = rs.getDate("information_date");
-				clientDisabilities.disability_type = rs.getInt("disability_type");
-				clientDisabilities.disability_response = rs.getInt("disabilitiy_response");
+				clientDisabilities.disability_type = rs.getInt("disabilitiy_type");
+				clientDisabilities.disability_response = rs.getInt("disability_response");
 				clientDisabilities.indefinite_and_impairs = rs.getInt("indefinite_and_impairs");
 				clientDisabilities.documentation_on_file = rs.getInt("documentation_on_file");
 				clientDisabilities.receiving_services = rs.getInt("receiving_services");
@@ -225,7 +372,7 @@ public class ClientDAO extends BaseJdbcDao {
 				clientDisabilities.is_tcell_count_available = rs.getBoolean("tcell_count_available");
 				clientDisabilities.tcell_count = rs.getInt("tcell_count");
 				clientDisabilities.tcell_source = rs.getInt("tcell_source");
-				clientDisabilities.is_viral_load_available = rs.getBoolean("viral_load_availalbe");
+				clientDisabilities.is_viral_load_available = rs.getBoolean("viral_load_available");
 				clientDisabilities.viral_load = rs.getInt("viral_load");
 				clientDisabilities.viral_load_source = rs.getInt("viral_load_source");
 				clientDisabilities.data_collection_stage = rs.getInt("data_collection_stage");
@@ -248,7 +395,7 @@ public class ClientDAO extends BaseJdbcDao {
 		public EmploymentEducation mapRow(ResultSet rs, int i) {
 			EmploymentEducation employmentEducation = new EmploymentEducation();
 			try {	
-				employmentEducation.id = rs.getInt("employement_education_id");
+				employmentEducation.id = rs.getInt("employment_education_id");
 				employmentEducation.project_entry_id = rs.getInt("project_entry_id");
 				employmentEducation.personal_id = rs.getInt("personal_id");
 				employmentEducation.information_date = rs.getDate("information_date");
