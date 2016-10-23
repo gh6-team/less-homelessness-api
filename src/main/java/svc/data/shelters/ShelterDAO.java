@@ -81,13 +81,13 @@ public class ShelterDAO extends BaseJdbcDao {
 	}
 
 	public ShelterBedAssignment assignBed(ShelterBedAssignment shelterBedAssignment) {
-		try {
-			final SqlParameterSource parameterSource = new MapSqlParameterSource()
-					.addValue("shelter_bed_id", shelterBedAssignment.shelter_bed_id)
-					.addValue("assigned_to_client_id", shelterBedAssignment.assigned_to_client_id)
-					.addValue("assignment_date", new Date())
-					.addValue("assigned_by_id", shelterBedAssignment.assigned_by_id);
+		final SqlParameterSource parameterSource = new MapSqlParameterSource()
+				.addValue("shelter_bed_id", shelterBedAssignment.shelter_bed_id)
+				.addValue("assigned_to_client_id", shelterBedAssignment.assigned_to_client_id)
+				.addValue("assignment_date", "2016-10-23")
+				.addValue("assigned_by_id", shelterBedAssignment.assigned_by_id);
 
+		try {
 			Number key = shelterBedAssignmentInsert.executeAndReturnKey(parameterSource);
 			shelterBedAssignment.id = key.intValue();
 			return shelterBedAssignment;
