@@ -49,13 +49,13 @@ public class TwilioManager {
 			
 			if(user == null || client == null)
 			{
-				return "Limited beds available at " + shelter.name + ".";
+				return "Limited beds available at " + shelter.name + ". http://lesshomelessness.org/map";
 			}
 			else
 			{
 				if(AssignBed(client, shelter))
 				{
-					return "We've reserved you a bed at " + shelter.name + " for tonight.";
+					return "We've reserved you a bed at " + shelter.name + " for tonight. http://lesshomelessness.org/map";
 				}
 				else
 				{
