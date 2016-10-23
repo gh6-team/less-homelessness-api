@@ -75,7 +75,7 @@ public class ClientController {
     }
     
     @ResponseBody
-    @RequestMapping(method = RequestMethod.PUT, value = "/{id}/needs")
+    @RequestMapping(method = RequestMethod.POST, value = "/{id}/needs")
     void CreateNeed(@RequestBody ClientNeed client_need)
     {
     	clientManager.CreateNeed(client_need);

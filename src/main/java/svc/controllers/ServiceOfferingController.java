@@ -57,7 +57,7 @@ public class ServiceOfferingController {
     }
     
     @ResponseBody
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public void Create(@RequestBody ServiceOffering serviceOffering)
     {
     	servicesManager.Create(serviceOffering);
