@@ -35,6 +35,7 @@ public class ClientController {
     ResponseEntity GetClient(@PathVariable("id") Integer id) {
         if (id == null) {
             LogSystem.LogEvent("Null id passed to controller");
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
         Client client = clientManager.GetClientById(id);
@@ -46,4 +47,21 @@ public class ClientController {
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/spdat")
+    ResponseEntity GetSpdatScore(@PathVariable("id") Integer id) {
+        if (id == null) {
+            LogSystem.LogEvent("Null id passed to controller");
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+        Client client = clientManager.GetClientById(id);
+        if(client == null)
+        {
+        	return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        
+        int score = clientManager.getSpdatScore(client);
+    	return new ResponseEntity<>(score, HttpStatus.OK);
+    }
 }
