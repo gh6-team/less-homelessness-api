@@ -10,6 +10,9 @@ import svc.managers.ShelterManager;
 import svc.models.Shelter;
 import svc.models.ShelterBedAssignment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 @RestController
@@ -36,14 +39,28 @@ public class ShelterController {
 
 		if (latitude != null && longitude != null) {
 			LatLng location = new LatLng(latitude, longitude);
-			return new SheltersDTO(shelterManager.GetSheltersByLocation(location));
+			List<Shelter> shelters = shelterManager.GetSheltersByLocation(location);
+			List<Long> availableBeds = findAvailableBedsForShelters(shelters);
+			return new SheltersDTO(shelters, availableBeds);
 		}
 
 		if (latitude == null && longitude == null) {
-			return new SheltersDTO(shelterManager.GetAllShelters());
+			List<Shelter> shelters = shelterManager.GetAllShelters();
+			List<Long> availableBeds = findAvailableBedsForShelters(shelters);
+			return new SheltersDTO(shelters, availableBeds);
 		}
 
 		return null;
+	}
+
+	private List<Long> findAvailableBedsForShelters(List<Shelter> shelters) {
+		List<Long> availableBeds = new ArrayList<>();
+		
+		for (Shelter shelter : shelters) {
+			availableBeds.add(shelterManager.GetAvailableBedCount(shelter.id));
+		}
+
+		return availableBeds;
 	}
 
 	@ResponseBody
