@@ -26,7 +26,7 @@ public class ClientController {
 	{
 		if(client == null)
 		{
-			LogSystem.LogEvent("Null opportunity passed to post.");
+			LogSystem.LogEvent("Null client passed to post.");
 			return null;
 		}
 		

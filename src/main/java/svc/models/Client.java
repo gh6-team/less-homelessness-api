@@ -34,7 +34,7 @@ public class Client {
 	public int military_branch;
 	public int discharge_status;
 	public Date date_created;
-	public Date date_updated;
+	public Date date_updated = new Date();
 	public int user_id;
 	
 	public int total_months_homeless;

@@ -316,11 +316,14 @@ public class ClientDAO extends BaseJdbcDao {
 		String sql = "DELETE FROM employment_education WHERE personal_id = :loginId";
 		jdbcTemplate.update(sql, parameterMap);
 		
-	    EmploymentEducation employmentEducation = client.employment_education_details;
-	    employmentEducation.personal_id = client.id;
-	    MapSqlParameterSource employmentParameters = getEmploymentParameters(employmentEducation);
-	    Number key = employmentEducationInsert.executeAndReturnKey(employmentParameters);
-	    employmentEducation.id = key.intValue();
+		if(client.employment_education_details != null)
+		{
+		    EmploymentEducation employmentEducation = client.employment_education_details;
+		    employmentEducation.personal_id = client.id;
+		    MapSqlParameterSource employmentParameters = getEmploymentParameters(employmentEducation);
+		    Number key = employmentEducationInsert.executeAndReturnKey(employmentParameters);
+		    employmentEducation.id = key.intValue();
+	    }
     }
     
     private void saveClientDisabilities(Client client)
@@ -330,12 +333,15 @@ public class ClientDAO extends BaseJdbcDao {
 		String sql = "DELETE FROM disabilities WHERE personal_id = :loginId";
 		jdbcTemplate.update(sql, parameterMap);
 		
-    	for(ClientDisabilities disability : client.disabilities)
-    	{
-    		disability.personal_id = client.id;
-			MapSqlParameterSource disabilityParameters = getDisabilityParameters(disability);
-			clientDisabilitiesInsert.executeAndReturnKey(disabilityParameters);
-    	}
+		if(client.disabilities != null)
+		{
+	    	for(ClientDisabilities disability : client.disabilities)
+	    	{
+	    		disability.personal_id = client.id;
+				MapSqlParameterSource disabilityParameters = getDisabilityParameters(disability);
+				clientDisabilitiesInsert.executeAndReturnKey(disabilityParameters);
+	    	}
+		}
     }
 
     private MapSqlParameterSource getEmploymentParameters(EmploymentEducation employment)
