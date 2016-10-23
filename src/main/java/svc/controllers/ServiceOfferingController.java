@@ -1,5 +1,7 @@
 package svc.controllers;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,6 +21,18 @@ import svc.models.ServiceOffering;
 public class ServiceOfferingController {
 	@Inject
 	ServiceOfferingManager servicesManager;
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET)
+	public List<ServiceOffering> GetAllServiceOfferings() {
+		return servicesManager.getAllServiceOfferings();
+	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "/organization/{organization_id}")
+	public List<ServiceOffering> GetServiceOfferings(@PathVariable("organization_id") int organization_id) {
+		return servicesManager.getServiceOfferings(organization_id);
+	}
 	
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "/{id}/client-need/{client_need_id}/assign")

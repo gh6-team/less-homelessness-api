@@ -1,5 +1,7 @@
 package svc.managers;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Component;
@@ -11,6 +13,14 @@ public class ServiceOfferingManager {
 	@Inject
 	ServiceOfferingDAO serviceOfferingDAO;
 
+	public List<ServiceOffering> getAllServiceOfferings(){
+		return serviceOfferingDAO.getAllServiceOfferings();
+	}
+	
+	public List<ServiceOffering> getServiceOfferings(int organization_id){
+		return serviceOfferingDAO.getServiceOfferings(organization_id);
+	}
+	
 	public void Assign(int service_id, int client_id)
 	{
 		serviceOfferingDAO.Assign(service_id, client_id);

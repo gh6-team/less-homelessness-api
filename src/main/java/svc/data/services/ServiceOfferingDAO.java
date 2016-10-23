@@ -1,10 +1,13 @@
 package svc.data.services;
 
+import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -32,6 +35,29 @@ public class ServiceOfferingDAO extends BaseJdbcDao {
     			.withTableName("service_need_match")
     			.usingColumns("client_need_id",
     					"service_offering_id");
+    }
+    
+    public List<ServiceOffering> getAllServiceOfferings(){
+		try {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			String sql = "SELECT * FROM service_offering";
+			return jdbcTemplate.query(sql, parameterMap, new ServiceOfferingSQLMapper());
+		} catch (Exception e) {
+			LogSystem.LogDBException(e);
+			return null;
+		}
+    }
+    
+    public List<ServiceOffering> getServiceOfferings(int organization_id){
+		try {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			parameterMap.put("organization_id", organization_id);
+			String sql = "SELECT * FROM service_offering WHERE organization_id = :organization_id";
+			return jdbcTemplate.query(sql, parameterMap, new ServiceOfferingSQLMapper());
+		} catch (Exception e) {
+			LogSystem.LogDBException(e);
+			return null;
+		}
     }
     
 	public void Assign(int service_id, int client_id)
@@ -94,6 +120,23 @@ public class ServiceOfferingDAO extends BaseJdbcDao {
 			jdbcTemplate.update(sql, parameterMap);
 		} catch (Exception e) {
 			LogSystem.LogDBException(e);
+		}
+	}
+	
+	private class ServiceOfferingSQLMapper implements RowMapper<ServiceOffering> {
+		public ServiceOffering mapRow(ResultSet rs, int i) {
+			ServiceOffering serviceOffering = new ServiceOffering();
+			try {
+				serviceOffering.id = rs.getInt("id");
+				serviceOffering.max_availability = rs.getInt("max_availability");
+				serviceOffering.organization_id = rs.getInt("organization_id");
+				serviceOffering.service = rs.getString("service");
+			} catch (Exception e) {
+				LogSystem.LogDBException(e);
+				return null;
+			}
+
+			return serviceOffering;
 		}
 	}
 }
