@@ -100,7 +100,57 @@ public class ClientDAO extends BaseJdbcDao {
 					"discharge_status",
 					"date_created",
 					"date_updated",
-					"user_id");
+					"user_id",
+            		"total_months_homeless",
+            		"times_house_then_homeless",
+            		"times_er",
+            		"police_interactions",
+            		"times_ambulance",
+            		"times_used_crisis_service",
+            		"times_hospitalized",
+            		"attacked_since_homeless",
+            		"threatened_harm",
+            		"pending_legal_action",
+            		"is_forced_or_tricked",
+            		"risky_activity",
+            		"is_primary_sleeping_location_shelter",
+            		"owe_money",
+            		"has_regular_income",
+            		"money_covers_expenses",
+            		"has_planned_activities",
+            		"has_disliked_friends",
+            		"friends_negatively_influence",
+            		"has_poor_hygiene",
+            		"has_regular_care",
+            		"has_kidney_disease",
+            		"frostbite_history",
+            		"has_liver_disease",
+            		"aids",
+            		"heatstroke_history",
+            		"heart_disease",
+            		"emphysema",
+            		"diabetes",
+            		"asthma",
+            		"cancer",
+            		"hep_c",
+            		"tuberculosis",
+            		"signs_of_health_condition",
+            		"problematic_drug_use",
+            		"daily_alcohol_consumption",
+            		"used_injection_drugs",
+            		"returned_to_drugs",
+            		"non_beverage_alcohol",
+            		"blacked_out",
+            		"signs_of_drug_alcohol_abuse",
+            		"been_committed",
+            		"er_for_mental_health",
+            		"spoken_with_psychiatrist",
+            		"head_trauma",
+            		"learning_disability",
+            		"problems_concentrating",
+            		"signs_of_mental_illness",
+            		"not_taking_medicine",
+            		"homelessness_cause_by_abuse");
     	
     	clientInsertExisting = new SimpleJdbcInsert(dataSource)
                 .withTableName("clients")
@@ -136,7 +186,57 @@ public class ClientDAO extends BaseJdbcDao {
                 		"discharge_status",
                 		"date_created",
                 		"date_updated",
-                		"user_id");
+                		"user_id",
+                		"total_months_homeless",
+                		"times_house_then_homeless",
+                		"times_er",
+                		"police_interactions",
+                		"times_ambulance",
+                		"times_used_crisis_service",
+                		"times_hospitalized",
+                		"attacked_since_homeless",
+                		"threatened_harm",
+                		"pending_legal_action",
+                		"is_forced_or_tricked",
+                		"risky_activity",
+                		"is_primary_sleeping_location_shelter",
+                		"owe_money",
+                		"has_regular_income",
+                		"money_covers_expenses",
+                		"has_planned_activities",
+                		"has_disliked_friends",
+                		"friends_negatively_influence",
+                		"has_poor_hygiene",
+                		"has_regular_care",
+                		"has_kidney_disease",
+                		"frostbite_history",
+                		"has_liver_disease",
+                		"aids",
+                		"heatstroke_history",
+                		"heart_disease",
+                		"emphysema",
+                		"diabetes",
+                		"asthma",
+                		"cancer",
+                		"hep_c",
+                		"tuberculosis",
+                		"signs_of_health_condition",
+                		"problematic_drug_use",
+                		"daily_alcohol_consumption",
+                		"used_injection_drugs",
+                		"returned_to_drugs",
+                		"non_beverage_alcohol",
+                		"blacked_out",
+                		"signs_of_drug_alcohol_abuse",
+                		"been_committed",
+                		"er_for_mental_health",
+                		"spoken_with_psychiatrist",
+                		"head_trauma",
+                		"learning_disability",
+                		"problems_concentrating",
+                		"signs_of_mental_illness",
+                		"not_taking_medicine",
+                		"homelessness_cause_by_abuse");
     }
     
     public Client saveClient(Client client)
@@ -276,7 +376,57 @@ public class ClientDAO extends BaseJdbcDao {
 		        .addValue("discharge_status", client.discharge_status)
 		        .addValue("date_created", client.date_created)
 		        .addValue("date_updated", new Date())
-		        .addValue("user_id", client.user_id);
+		        .addValue("user_id", client.user_id)
+		        .addValue("total_months_homeless", client.total_months_homeless)
+		        .addValue("times_house_then_homeless", client.times_house_then_homeless)
+		        .addValue("times_er", client.times_er)
+		        .addValue("police_interactions", client.police_interactions)
+		        .addValue("times_ambulance", client.times_ambulance)
+		        .addValue("times_used_crisis_service", client.times_used_crisis_service)
+		        .addValue("times_hospitalized", client.times_hospitalized)
+		        .addValue("attacked_since_homeless", client.attacked_since_homeless)
+		        .addValue("threatened_harm", client.threatened_harm)
+		        .addValue("pending_legal_action", client.pending_legal_action)
+		        .addValue("is_forced_or_tricked", client.is_forced_or_tricked)
+		        .addValue("risky_activity", client.risky_activity)
+		        .addValue("is_primary_sleeping_location_shelter", client.is_primary_sleeping_location_shelter)
+		        .addValue("owe_money", client.owe_money)
+		        .addValue("has_regular_income", client.has_regular_income)
+		        .addValue("money_covers_expenses", client.money_covers_expenses)
+		        .addValue("has_planned_activities", client.has_planned_activities)
+		        .addValue("has_disliked_friends", client.has_disliked_friends)
+		        .addValue("friends_negatively_influence", client.friends_negatively_influence)
+		        .addValue("has_poor_hygiene", client.has_poor_hygiene)
+		        .addValue("has_regular_care", client.has_regular_care)
+		        .addValue("has_kidney_disease", client.has_kidney_disease)
+		        .addValue("frostbite_history", client.frostbite_history)
+		        .addValue("has_liver_disease", client.has_liver_disease)
+		        .addValue("aids", client.aids)
+		        .addValue("heatstroke_history", client.heatstroke_history)
+		        .addValue("heart_disease", client.heart_disease)
+		        .addValue("emphysema", client.emphysema)
+		        .addValue("diabetes", client.diabetes)
+		        .addValue("asthma", client.asthma)
+		        .addValue("cancer", client.cancer)
+		        .addValue("hep_c", client.hep_c)
+		        .addValue("tuberculosis", client.tuberculosis)
+		        .addValue("signs_of_health_condition", client.signs_of_health_condition)
+		        .addValue("problematic_drug_use", client.problematic_drug_use)
+		        .addValue("daily_alcohol_consumption", client.daily_alcohol_consumption)
+		        .addValue("used_injection_drugs", client.used_injection_drugs)
+		        .addValue("returned_to_drugs", client.returned_to_drugs)
+		        .addValue("non_beverage_alcohol", client.non_beverage_alcohol)
+		        .addValue("blacked_out", client.blacked_out)
+		        .addValue("signs_of_drug_alcohol_abuse", client.signs_of_drug_alcohol_abuse)
+		        .addValue("been_committed", client.been_committed)
+		        .addValue("er_for_mental_health", client.er_for_mental_health)
+		        .addValue("spoken_with_psychiatrist", client.spoken_with_psychiatrist)
+		        .addValue("head_trauma", client.head_trauma)
+		        .addValue("learning_disability", client.learning_disability)
+		        .addValue("problems_concentrating", client.problems_concentrating)
+		        .addValue("signs_of_mental_illness", client.signs_of_mental_illness)
+		        .addValue("not_taking_medicine", client.not_taking_medicine)
+		        .addValue("homelessness_cause_by_abuse", client.homelessness_cause_by_abuse);
 	}
 
     public Client getClientById(int client_id) {
@@ -344,7 +494,56 @@ public class ClientDAO extends BaseJdbcDao {
 				client.date_created = rs.getDate("date_created");
 				client.date_updated = rs.getDate("date_updated");
 				client.user_id = rs.getInt("user_id");
-				
+				client.total_months_homeless = rs.getInt("total_months_homeless");
+				client.times_house_then_homeless = rs.getInt("times_house_then_homeless");
+				client.times_er = rs.getInt("times_er");
+				client.police_interactions = rs.getInt("police_interactions");
+				client.times_ambulance = rs.getInt("times_ambulance");
+				client.times_used_crisis_service = rs.getInt("times_used_crisis_service");
+				client.times_hospitalized = rs.getInt("times_hospitalized");
+				client.attacked_since_homeless = rs.getBoolean("attacked_since_homeless");
+				client.threatened_harm = rs.getBoolean("threatened_harm");
+				client.pending_legal_action = rs.getBoolean("pending_legal_action");
+				client.is_forced_or_tricked = rs.getBoolean("is_forced_or_tricked");
+				client.risky_activity = rs.getBoolean("risky_activity");
+				client.is_primary_sleeping_location_shelter = rs.getBoolean("is_primary_sleeping_location_shelter");
+				client.owe_money = rs.getBoolean("owe_money");
+				client.has_regular_income = rs.getBoolean("has_regular_income");
+				client.money_covers_expenses = rs.getBoolean("money_covers_expenses");
+				client.has_planned_activities = rs.getBoolean("has_planned_activities");
+				client.has_disliked_friends = rs.getBoolean("has_disliked_friends");
+				client.friends_negatively_influence = rs.getBoolean("friends_negatively_influence");
+				client.has_poor_hygiene = rs.getBoolean("has_poor_hygiene");
+				client.has_regular_care = rs.getBoolean("has_regular_care");
+				client.has_kidney_disease = rs.getBoolean("has_kidney_disease");
+				client.frostbite_history = rs.getBoolean("frostbite_history");
+				client.has_liver_disease = rs.getBoolean("has_liver_disease");
+				client.aids = rs.getBoolean("aids");
+				client.heatstroke_history = rs.getBoolean("heatstroke_history");
+				client.heart_disease = rs.getBoolean("heart_disease");
+				client.emphysema = rs.getBoolean("emphysema");
+				client.diabetes = rs.getBoolean("diabetes");
+				client.asthma = rs.getBoolean("asthma");
+				client.cancer = rs.getBoolean("cancer");
+				client.hep_c = rs.getBoolean("hep_c");
+				client.tuberculosis = rs.getBoolean("tuberculosis");
+				client.signs_of_health_condition = rs.getBoolean("signs_of_health_condition");
+				client.problematic_drug_use = rs.getBoolean("problematic_drug_use");
+				client.daily_alcohol_consumption = rs.getBoolean("daily_alcohol_consumption");
+				client.used_injection_drugs = rs.getBoolean("used_injection_drugs");
+				client.returned_to_drugs = rs.getBoolean("returned_to_drugs");
+				client.non_beverage_alcohol = rs.getBoolean("non_beverage_alcohol");
+				client.blacked_out = rs.getBoolean("blacked_out");
+				client.signs_of_drug_alcohol_abuse = rs.getBoolean("signs_of_drug_alcohol_abuse");
+				client.been_committed = rs.getBoolean("been_committed");
+				client.er_for_mental_health = rs.getBoolean("er_for_mental_health");
+				client.spoken_with_psychiatrist = rs.getBoolean("spoken_with_psychiatrist");
+				client.head_trauma = rs.getBoolean("head_trauma");
+				client.learning_disability = rs.getBoolean("learning_disability");
+				client.problems_concentrating = rs.getBoolean("problems_concentrating");
+				client.signs_of_mental_illness = rs.getBoolean("signs_of_mental_illness");
+				client.not_taking_medicine = rs.getBoolean("not_taking_medicine");
+				client.homelessness_cause_by_abuse = rs.getBoolean("homelessness_cause_by_abuse");
 			} catch (Exception e) {
 				LogSystem.LogDBException(e);
 				return null;
