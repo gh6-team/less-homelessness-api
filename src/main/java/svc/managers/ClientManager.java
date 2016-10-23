@@ -5,6 +5,8 @@ import svc.data.clients.ClientDAO;
 import svc.models.Client;
 import svc.models.ClientNeed;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 @Component
@@ -17,6 +19,10 @@ public class ClientManager {
 	{
 		client = clientDAO.saveClient(client);
 		return client;
+	}
+	
+	public List<Client> getAllClients() {
+		return clientDAO.getAllClients();
 	}
 
     public Client GetClientById(int id) {

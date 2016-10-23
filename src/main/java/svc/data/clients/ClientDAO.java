@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -244,6 +245,17 @@ public class ClientDAO extends BaseJdbcDao {
                 		"signs_of_mental_illness",
                 		"not_taking_medicine",
                 		"homelessness_cause_by_abuse");
+    }
+    
+    public List<Client> getAllClients() {
+		try {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			String sql = "SELECT * FROM clients";
+			return jdbcTemplate.query(sql, parameterMap, new ClientSQLMapper());
+		} catch (Exception e) {
+			LogSystem.LogDBException(e);
+			return null;
+		}
     }
     
     public Client saveClient(Client client)

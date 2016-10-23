@@ -9,6 +9,8 @@ import svc.managers.ClientManager;
 import svc.models.Client;
 import svc.models.ClientNeed;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 @RestController
@@ -31,6 +33,12 @@ public class ClientController {
 		return clientManager.saveClient(client);
 	}
 
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET)
+	List<Client> GetClients(){
+		return clientManager.getAllClients();
+	}
+	
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     ResponseEntity GetClient(@PathVariable("id") Integer id) {
