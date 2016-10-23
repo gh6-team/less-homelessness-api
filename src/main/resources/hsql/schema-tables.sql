@@ -9,6 +9,8 @@ CREATE TABLE clients (
     name_data_quality INTEGER NULL,
     ssn INTEGER NULL,
     ssn_data_quality INTEGER NULL,
+    drivers_license varchar(50) NULL,
+    territory varchar(100) NULL,
     dob date NULL,
     dob_data_quality INTEGER NULL,
     am_ind_ak_native INTEGER NULL,
