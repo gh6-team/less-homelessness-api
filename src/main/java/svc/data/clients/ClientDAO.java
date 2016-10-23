@@ -20,9 +20,16 @@ public class ClientDAO extends BaseJdbcDao {
 	private SimpleJdbcInsert clientInsertExisting;
 	private SimpleJdbcInsert clientDisabilitiesInsert;
 	private SimpleJdbcInsert employmentEducationInsert;
+	private SimpleJdbcInsert clientNeedInsert;
 
     @Override
 	protected void createSimpleJdbcInserts(DataSource dataSource) {
+    	clientNeedInsert = new SimpleJdbcInsert(dataSource)
+    			.withTableName("client_need")
+    			.usingGeneratedKeyColumns("id")
+    			.usingColumns("client_id",
+    					"service",
+    					"approved");
     	employmentEducationInsert = new SimpleJdbcInsert(dataSource)
     			.withTableName("employment_education")
     			.usingGeneratedKeyColumns("employment_education_id")
@@ -267,9 +274,31 @@ public class ClientDAO extends BaseJdbcDao {
 		}
     }
     
+    public void CreateNeed(ClientNeed client_need) {
+		try {
+	    	MapSqlParameterSource needsParameters = new MapSqlParameterSource()
+			        .addValue("client_id", client_need.client_id)
+			        .addValue("approved", client_need.approved)
+			        .addValue("service", client_need.service);
+			Number key = clientNeedInsert.executeAndReturnKey(needsParameters);
+		} catch (Exception e) {
+			LogSystem.LogDBException(e);
+		}
+    }
+    
+    public void DeleteNeed(Integer need_id) {
+		try {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			parameterMap.put("need_id", need_id);
+			String sql = "DELETE FROM client_need WHERE id = :need_id";
+			jdbcTemplate.update(sql, parameterMap);
+		} catch (Exception e) {
+			LogSystem.LogDBException(e);
+		}
+    }
+    
     private void saveEmploymentEducation(Client client)
     {
-
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("loginId", client.id);
 		String sql = "DELETE FROM employment_education WHERE personal_id = :loginId";

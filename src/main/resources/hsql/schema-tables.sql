@@ -432,6 +432,30 @@ CREATE TABLE user_login (
 	PRIMARY KEY (id)
 );
 
+CREATE TABLE organization (
+	id INTEGER IDENTITY PRIMARY KEY,
+	name varchar(100)
+);
+
+CREATE TABLE service_offering (
+	id INTEGER IDENTITY PRIMARY KEY,
+	organization_id INTEGER NOT NULL,
+	service varchar(50) NOT NULL,
+	max_availability INTEGER NOT NULL
+);
+
+CREATE TABLE client_need (
+	id INTEGER IDENTITY PRIMARY KEY,
+	client_id INTEGER NOT NULL,
+	service varchar(50) NOT NULL,
+	approved BIT
+);
+
+CREATE TABLE service_need_match(
+	client_need_id INTEGER NOT NULL,
+	service_offering_id INTEGER NOT NULL
+);
+
 
 
 

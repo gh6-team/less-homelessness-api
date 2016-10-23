@@ -31,6 +31,7 @@ public class LocalProfile {
 				.addScript("hsql/shelter-beds.sql")
 				.addScript("hsql/shelter-bed-assignments.sql")
 				.addScript("hsql/services.sql")
+				.addScript("hsql/service-offerings.sql")
 				.build();
 	}
 

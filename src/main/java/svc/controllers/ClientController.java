@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import svc.logging.LogSystem;
 import svc.managers.ClientManager;
 import svc.models.Client;
+import svc.models.ClientNeed;
 
 import javax.inject.Inject;
 
@@ -63,5 +64,19 @@ public class ClientController {
         
         int score = clientManager.getSpdatScore(client);
     	return new ResponseEntity<>(score, HttpStatus.OK);
+    }
+    
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}/needs")
+    void CreateNeed(@RequestBody ClientNeed client_need)
+    {
+    	clientManager.CreateNeed(client_need);
+    }
+    
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}/need/{need_id}")
+    void DeleteNeed(@PathVariable("id") Integer id, @PathVariable("need_id") Integer need_id)
+    {
+    	clientManager.DeleteNeed(need_id);
     }
 }

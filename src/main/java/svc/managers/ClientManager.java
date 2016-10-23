@@ -3,6 +3,7 @@ package svc.managers;
 import org.springframework.stereotype.Component;
 import svc.data.clients.ClientDAO;
 import svc.models.Client;
+import svc.models.ClientNeed;
 
 import javax.inject.Inject;
 
@@ -20,6 +21,14 @@ public class ClientManager {
 
     public Client GetClientById(int id) {
         return clientDAO.getClientById(id);
+    }
+    
+    public void CreateNeed(ClientNeed client_need) {
+    	clientDAO.CreateNeed(client_need);;
+    }
+    
+    public void DeleteNeed(Integer need_id) {
+    	clientDAO.DeleteNeed(need_id);;
     }
 
 	public int getSpdatScore(Client client) {
