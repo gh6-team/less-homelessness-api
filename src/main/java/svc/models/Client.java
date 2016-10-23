@@ -37,6 +37,62 @@ public class Client {
 	public Date date_updated;
 	public int user_id;
 	
+	public int total_months_homeless;
+	public int times_house_then_homeless;
+	public int times_er;
+	public int police_interactions;
+	public int times_ambulance;
+	public int times_used_crisis_service;
+	public int times_hospitalized;
+	public boolean attacked_since_homeless;
+	public boolean threatened_harm;
+	public boolean pending_legal_action;
+	public boolean is_forced_or_tricked;
+	public boolean risky_activity;
+	public boolean is_primary_sleeping_location_shelter;
+	public boolean owe_money;
+	public boolean has_regular_income;
+	public boolean money_covers_expenses;
+	public boolean has_planned_activities;
+	public boolean has_disliked_friends;
+	public boolean friends_negatively_influence;
+	public boolean has_poor_hygiene;
+	
+	public boolean has_regular_care;
+	public boolean has_kidney_disease;
+	public boolean frostbite_history;
+	public boolean has_liver_disease;
+	public boolean aids;
+	
+	public boolean heatstroke_history;
+	public boolean heart_disease;
+	public boolean emphysema;
+	public boolean diabetes;
+	public boolean asthma;
+	public boolean cancer;
+	public boolean hep_c;
+	public boolean tuberculosis;
+	public boolean signs_of_health_condition;
+	
+	public boolean problematic_drug_use;
+	public boolean daily_alcohol_consumption;
+	public boolean used_injection_drugs;
+	public boolean returned_to_drugs;
+	public boolean non_beverage_alcohol;
+	public boolean blacked_out;
+	public boolean signs_of_drug_alcohol_abuse;
+	
+	public boolean been_committed;
+	public boolean er_for_mental_health;
+	public boolean spoken_with_psychiatrist;
+	public boolean head_trauma;
+	public boolean learning_disability;
+	public boolean problems_concentrating;
+	public boolean signs_of_mental_illness;
+	
+	public boolean not_taking_medicine;
+	public boolean homelessness_cause_by_abuse;
+		
 	public List<ClientDisabilities> disabilities;
 	public EmploymentEducation employment_education_details;
 }
