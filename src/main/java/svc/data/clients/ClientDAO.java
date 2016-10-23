@@ -258,6 +258,18 @@ public class ClientDAO extends BaseJdbcDao {
 		}
     }
     
+    public List<Client> findClients(String service_need){
+		try {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			parameterMap.put("service_need", service_need);
+			String sql = "SELECT * FROM clients WHERE EXISTS (SELECT 1 FROM client_need WHERE clients.client_id = client_id AND service = :service_need)";
+			return jdbcTemplate.query(sql, parameterMap, new ClientSQLMapper());
+		} catch (Exception e) {
+			LogSystem.LogDBException(e);
+			return null;
+		}
+    }
+    
     public Client saveClient(Client client)
     {
 		try {

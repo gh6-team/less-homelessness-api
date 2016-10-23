@@ -39,6 +39,12 @@ public class ClientController {
 		return clientManager.getAllClients();
 	}
 	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value="/find")
+	List<Client> FindClients(@RequestParam String service_need){
+		return clientManager.findClients(service_need);
+	}
+	
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     ResponseEntity GetClient(@PathVariable("id") Integer id) {

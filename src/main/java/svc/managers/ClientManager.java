@@ -29,6 +29,10 @@ public class ClientManager {
         return clientDAO.getClientById(id);
     }
     
+    public List<Client> findClients(String service_need){
+    	return clientDAO.findClients(service_need);
+    }
+    
     public void CreateNeed(ClientNeed client_need) {
     	clientDAO.CreateNeed(client_need);;
     }
